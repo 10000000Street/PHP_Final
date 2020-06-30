@@ -16,6 +16,7 @@
 
 ?>
 
+
 <html>
 <head>
 <title></title>
@@ -54,7 +55,7 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Listado-Alta-Baja-Modificacion de Paquetes</a></h2>
+            <h2><a style="color:white;">Modificar Paquete</a></h2>
 		    <div id="banner">
                 <div class="limiter">
                     <div class="container-table100">
@@ -64,29 +65,42 @@
                                     <thead>
                                         <tr class="table100-head">
                                             <th class="column1">Codigo del Paquete</th>
-                                            <th class="column8">Estado del Paquete</th>
+                                            <th class="column5">Direccion Remitente</th> 
+                                            <th class="column5">Direccion Destino</th> 
                                             <th class="column4">Fragil</th>
-                                            <th class="column5">Perecedero</th>
-                                            <th class="column5">Modificar</th>
-                                            <th class="column5"><a href="agregarPaquete.php" class="buttonLogin buttonLoginAgr">Agregar</a></th>
+                                            <th class="column5">Perecedero</th>       
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">En Transito</td>
+                                            <td class="column1">231544563</td>
+                                            <td class="column6">Tallugar 1256</td>
+                                            <td class="column6">Tallugar 1256</td>
                                             <td class="column4">Si</td>
                                             <td class="column5">No</td>
-                                            <th class="column5"><a href="modificarPaquete.php" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                            <th class="column5"><a href="borrarPaquete.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
                                         </tr>
-                                        
+                                        <tr>
+                                            <td class="column1"><input style="height: 35px; width: 9em; font-size: 20px;" type="number"></td>
+                                            <td class="column6"><input style="height: 35px; width: 10em; font-size: 20px;" type="text"></td>
+                                            <td class="column6"><input style="height: 35px; width: 10em; font-size: 20px;" type="text"></td>
+                                            <td class="column4"><input type="checkbox"></td>
+                                            <td class="column5"><input type="checkbox"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>  
                         </div>
                     </div>
-                </div>  
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="paquetes.php" class="buttonLogin buttonLogin1">
+                    Cancelar
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <!-- formulario -->
+                <a href="" class="buttonLogin buttonLogin1">
+                    Modificar
+                </a>   
             </div>
         </div>
     </div>

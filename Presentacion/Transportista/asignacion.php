@@ -114,7 +114,7 @@
     </div>
 <div id="footer">
     <div id="logo3">
-        <h2><a>Tade&Fede's Company</a></h2>
+        <h2><a >Tade&Fede's Company</a></h2>
     </div>
 </div>
 

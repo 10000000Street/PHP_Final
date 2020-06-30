@@ -27,7 +27,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="">Paquetitos Punto Com</a></h1>
+            <h1><a href="#">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>
@@ -54,7 +54,7 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Listado-Alta-Baja-Modificacion de Paquetes</a></h2>
+            <h2><a style="color:white;">Borrar Paquete</a></h2>
 		    <div id="banner">
                 <div class="limiter">
                     <div class="container-table100">
@@ -64,29 +64,35 @@
                                     <thead>
                                         <tr class="table100-head">
                                             <th class="column1">Codigo del Paquete</th>
-                                            <th class="column8">Estado del Paquete</th>
+                                            <th class="column5">Direccion Remitente</th> 
+                                            <th class="column5">Direccion Destino</th> 
                                             <th class="column4">Fragil</th>
-                                            <th class="column5">Perecedero</th>
-                                            <th class="column5">Modificar</th>
-                                            <th class="column5"><a href="agregarPaquete.php" class="buttonLogin buttonLoginAgr">Agregar</a></th>
+                                            <th class="column5">Perecedero</th>       
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">En Transito</td>
+                                            <td class="column1">231544563</td>
+                                            <td class="column6">Tallugar 1256</td>
+                                            <td class="column6">Tallugar 1256</td>
                                             <td class="column4">Si</td>
                                             <td class="column5">No</td>
-                                            <th class="column5"><a href="modificarPaquete.php" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                            <th class="column5"><a href="borrarPaquete.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
                                         </tr>
-                                        
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>  
                         </div>
                     </div>
-                </div>  
+                    <h2><a style="color: white;">Estas seguro de que quieres borrar este Paquete?</a></h2>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                <a href="paquetes.php" class="buttonLogin buttonLogin1">
+                    No
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a href="4_ABMpaquetes(Encargado).html" class="buttonLogin buttonLogin1">
+                    Si
+                </a>   
             </div>
         </div>
     </div>

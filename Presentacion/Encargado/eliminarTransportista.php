@@ -27,7 +27,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="">Paquetitos Punto Com</a></h1>
+            <h1><a href="#">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>
@@ -45,8 +45,8 @@
             <div id="menu">
                 <ul>
                     <li><a class="buttonA buttonA1" href="inicio.php" accesskey="1" title="">Inicio</a></li>
-                    <li><a class="buttonA buttonSeleccionado" href="paquetes.php" accesskey="2" title="">Listado-Alta-Baja-Modificacion de paquetes</a></li>
-                    <li><a class="buttonA buttonA1" href="transportistas.php" accesskey="3" title="">Listado-Alta-Baja-Modificacion de Transportista</a></li>
+                    <li><a class="buttonA buttonA1" href="paquetes.php" accesskey="2" title="">Listado-Alta-Baja-Modificacion de paquetes</a></li>
+                    <li><a class="buttonA buttonSeleccionado" href="transportistas.php" accesskey="3" title="">Listado-Alta-Baja-Modificacion de Transportista</a></li>
                     <li><a class="buttonA buttonA1" href="historial.php" accesskey="3" title="">Historial de envios</a></li>
                     <li><a class="buttonA buttonA1" href="?logout=1" accesskey="4" title="">Salir</a></li>
                 </ul>      
@@ -54,7 +54,7 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Listado-Alta-Baja-Modificacion de Paquetes</a></h2>
+            <h2><a style="color:white;">Borrar Transportista</a></h2>
 		    <div id="banner">
                 <div class="limiter">
                     <div class="container-table100">
@@ -63,30 +63,40 @@
                                 <table>
                                     <thead>
                                         <tr class="table100-head">
-                                            <th class="column1">Codigo del Paquete</th>
-                                            <th class="column8">Estado del Paquete</th>
-                                            <th class="column4">Fragil</th>
-                                            <th class="column5">Perecedero</th>
-                                            <th class="column5">Modificar</th>
-                                            <th class="column5"><a href="agregarPaquete.php" class="buttonLogin buttonLoginAgr">Agregar</a></th>
+                                            <th class="column1">Nombre</th>
+                                            <th class="column5">Apellido</th> 
+                                            <th class="column4">C.I.</th>
+                                            <th class="column5">Direccion</th>
+                                            <th class="column5">Telefono</th>
+                                            <th class="column5">Foto</th>
+                                            <th class="column5">Pin</th>       
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column4">Si</td>
-                                            <td class="column5">No</td>
-                                            <th class="column5"><a href="modificarPaquete.php" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                            <th class="column5"><a href="borrarPaquete.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
+                                            <td class="column1">Juan</td>
+                                            <td class="column1">Carlos</td>
+                                            <td class="column1">31243223</td>
+                                            <td class="column1">Andasa Berdonde 2762</td>
+                                            <td class="column1">234534256</td>
+                                            <td class="column1">Foto</td>
+                                            <td class="column1">1234</td>
                                         </tr>
-                                        
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>  
                         </div>
                     </div>
-                </div>  
+                    <h2><a style="color: white;">Estas seguro de que quieres borrar a este Transportista?</a></h2>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="transportistas.php" class="buttonLogin buttonLogin1">
+                    No
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a href="" class="buttonLogin buttonLogin1">
+                    Si
+                </a>   
             </div>
         </div>
     </div>

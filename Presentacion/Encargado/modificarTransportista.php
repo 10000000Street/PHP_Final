@@ -51,43 +51,60 @@
                     <li><a class="buttonA buttonA1" href="?logout=1" accesskey="4" title="">Salir</a></li>
                 </ul>      
             </div>            
-        </div>  
+        </div> 
 
         <div id="main">
-            <h2><a style="color:white;">Listado-Alta-Baja-Modificacion de Paquetes</a></h2>
+            <h2><a style="color:white;">Modificar Transportista</a></h2>
 		    <div id="banner">
                 <div class="limiter">
                     <div class="container-table100">
-                        <div class="wrap-table100">
+                        <div class="wrap-table100" style="margin-right: 55px;">
                             <div class="table100">
                                 <table>
                                     <thead>
                                         <tr class="table100-head">
-                                            <th class="column1">C.I. del Transportista</th>
-                                            <th class="column8">Nombre del Transportista</th>
-                                            <th class="column4">Direccion</th>
+                                            <th class="column1">Nombre</th>
+                                            <th class="column5">Apellido</th> 
+                                            <th class="column4">C.I.</th>
+                                            <th class="column5">Direccion</th>
                                             <th class="column5">Telefono</th>
                                             <th class="column5">Foto</th>
-                                            <th class="column5">Modificar</th>
-                                            <th class="column5"><a href="agregarTransportista.php" class="buttonLogin buttonLoginAgr">Agregar</a></th>
+                                            <th class="column5">Pin</th>       
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="column1">2.003.985-5</td>
-                                            <td class="column6">Daniel Man</td>
-                                            <td class="column4">Monte Caseros 1548</td>
-                                            <td class="column5">095 345 827</td>
-                                            <th class="column5">Foto</th>
-                                            <th class="column5"><a href="modificarTransportista.php" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                            <th class="column5"><a href="eliminarTransportista.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
+                                            <td class="column1">Juan</td>
+                                            <td class="column1">Carlos</td>
+                                            <td class="column1">31243223</td>
+                                            <td class="column1">Andasa Berdonde 2762</td>
+                                            <td class="column1">234534256</td>
+                                            <td class="column1">Foto</td>
+                                            <td class="column1">1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="column1"><input style="height: 35px; width: 6em; font-size: 20px;" type="text"></td>
+                                            <td class="column6"><input style="height: 35px; width: 6em; font-size: 20px;" type="text"></td>
+                                            <td class="column4"><input style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
+                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 20px;" type="text"></td>
+                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
+                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 15px;" type="file"></td>
+                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>  
                         </div>
                     </div>
-                </div>  
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                <a href="transportistas.php" class="buttonLogin buttonLogin1">
+                    Cancelar
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a href="" class="buttonLogin buttonLogin1">
+                    Modificar
+                </a>   
             </div>
         </div>
     </div>
