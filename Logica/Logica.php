@@ -2,7 +2,7 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/Persistencia.php");
-
+    /* comentario prueba */
     class Logica{
        
         public function loginTransportista($ci,$password){
