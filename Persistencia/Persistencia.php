@@ -8,7 +8,7 @@
         private static $ip="localhost";
         private static $port="3306";
         private static $user="root";
-        private static $pass="root";
+        private static $pass="admin";
         private static $db="db_php";
 
         static function Molde(){
