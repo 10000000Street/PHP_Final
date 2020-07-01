@@ -3,17 +3,16 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     session_start();
+    
     if(isset($_GET["logout"])){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-
     if (isset($_SESSION["encargado"])){
-
+        //$paquete= Logica::pedirPaquetesEnviados($_SESSION["encargado"]);
     }
     else header("Location: ../bienvenida.php");
     
-
 ?>
 
 <html>
@@ -31,7 +30,7 @@
         </div>
         <div id="menu2">
             <ul>
-                <li><a href="?logout=1" accesskey="5" title=""><?php echo $_SESSION["encargado"]->getNombres()." ".$_SESSION["encargado"]->getApellidos()."  |  ";?>Cerrar Sesion</a></li>
+                <li><a href="?logout=1" title=""><?php echo $_SESSION["encargado"]->getNombres()."  |  ";?>Cerrar Sesion</a></li>
             </ul>
         </div>
     </div>
@@ -39,7 +38,7 @@
     <div id="page" class="container">
         <div id="header">
             <div id="logo">
-            <h1><a href="inicio.php">Encargado:<?php echo "<br>".$_SESSION["encargado"]->getNombres()." ".$_SESSION["encargado"]->getApellidos() ?></a></h1>
+                <h1><a href="#">Encargado: <?php echo $_SESSION["encargado"]->getNombres();?></a></h1>
                 
             </div>
             <div id="menu">
@@ -47,8 +46,8 @@
                     <li><a class="buttonA buttonA1" href="inicio.php" accesskey="1" title="">Inicio</a></li>
                     <li><a class="buttonA buttonA1" href="paquetes.php" accesskey="2" title="">Listado-Alta-Baja-Modificacion de paquetes</a></li>
                     <li><a class="buttonA buttonA1" href="transportistas.php" accesskey="3" title="">Listado-Alta-Baja-Modificacion de Transportista</a></li>
-                    <li><a class="buttonA buttonSeleccionado" href="historial.php" accesskey="3" title="">Historial de envios</a></li>
-                    <li><a class="buttonA buttonA1" href="?logout=1" accesskey="4" title="">Salir</a></li>
+                    <li><a class="buttonA buttonSeleccionado" href="historial.php" accesskey="4" title="">Historial de envios</a></li>
+                    <li><a class="buttonA buttonA1" href="?logout=1" accesskey="5" title="">Salir</a></li>
                 </ul>      
             </div>            
         </div>  

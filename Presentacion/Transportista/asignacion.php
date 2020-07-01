@@ -38,7 +38,7 @@
         </div>
         <div id="menu2">
             <ul>
-                <li><a href="?logout=1" accesskey="5" title=""><?php echo $_SESSION["transportista"]->getNombres()."  |  ";?>Cerrar Sesion</a></li>
+                <li><a href="?logout=1" title=""><?php echo $_SESSION["transportista"]->getNombres()."  |  ";?>Cerrar Sesion</a></li>
             </ul>
         </div>
     </div>
@@ -114,7 +114,7 @@
     </div>
 <div id="footer">
     <div id="logo3">
-        <h2><a >Tade&Fede's Company</a></h2>
+        <h2><a>Tade&Fede's Company</a></h2>
     </div>
 </div>
 
