@@ -6,11 +6,10 @@
     class Logica{
        
         public function loginTransportista($ci,$password){
-            $transportistas=Persistencia::pedirTransportistas();
+            $tranportistas=Persistencia::pedirTransportistas();
 
-            if($transportistas!=null){
-                foreach($transportistas as $transportista){
-
+            if($tranportistas!=null){
+                foreach($tranportistas as $transportista){
                     if($ci==$transportista->getCedula()){
                         if(md5($password)==$transportista->getPin()) {
                             session_start();
@@ -30,7 +29,6 @@
 
             if($encargados!=null){
                 foreach($encargados as $encargado){
-
                     if($ci==$encargado->getCedula()){
                         if(md5($password)==$encargado->getPin()) {
                             session_start();
@@ -67,6 +65,9 @@
         }
         public static function pedirPaquetesEntregados($transportista){
             return Persistencia::pedirPaquetesEntregados($transportista);
+        }
+        public static function pedirPaquetesActivos($encargado){
+            return Persistencia::pedirPaquetesActivos($encargado);
         }
 
     }
