@@ -35,7 +35,7 @@
     <div id="page" class="container">
         <div id="header">
             <div id="logo">
-                <h1><a href="#">Seleccione su <br> tipo de cuenta</a></h1>
+                <h1><a href="">Seleccione su <br> tipo de cuenta</a></h1>
                 
             </div>
             <div id="menu">
@@ -58,7 +58,7 @@
                             </span>
                             <form method="post" action="e_login.php">
                                 <div class="wrap-input100 validate-input">
-                                    <input class="input100" type="number" name="ci" placeholder="C.I." min="0">
+                                    <input class="input100" type="text" name="ci" placeholder="C.I." required>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -66,12 +66,12 @@
                                 </div>
 
                                 <div class="wrap-input100 validate-input">
-                                    <input class="input100" type="password" name="pin" placeholder="Pin">
+                                    <input class="input100" type="password" name="pin" placeholder="Pin"required>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </span>
-                                </div>                              
+                                </div>
 
                                 <div class="container-login100-form-btn">
                                     <input class="buttonLogin buttonLogin1" type="submit" name="enviar" value="Login">
@@ -79,7 +79,9 @@
 
                                 <!--Para hacer div invisible(css): display: none;-->
                                 <br>
-                                <div class="text-center p-t-12" align="center" <?php if(!($acceso==false && isset($_POST["enviar"])) ) echo 'style="display: none"';?> > 
+                                <div class="text-center p-t-12" align="center" 
+                                    <?php if(!($acceso==false && isset($_POST["enviar"])) ) echo 'style="display: none"';?>
+                                > 
                                     <div style="color: rgb(204, 34, 34);margin: 10px;width: 250px;padding: 5px; border: 2px solid rgb(161, 34, 34);">
                                     CI/Pin invalidos, intente nuevamente
                                     </div>

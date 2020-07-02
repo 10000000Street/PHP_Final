@@ -11,22 +11,6 @@
         private static $pass="admin";
         private static $db="db_php";
 
-        static function Molde(){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-
-                    
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
         static function pedirTransportistas(){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
@@ -133,7 +117,7 @@
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
                 if($conexion){
                     $sentencia=mysqli_prepare($conexion,
-                        "select p.*,e.email 
+                        "select p.*,e.email
                         from Encargado e ,Persona p 
                         where e.ci=p.ci and p.ci=?"
                     );
@@ -391,91 +375,22 @@
                 mysqli_close($conexion);
             }
         }
-        static function pedirPaquetesActivos(){
+        static function Molde(){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
                 if($conexion){
 
-                    $sentencia= mysqli_prepare($conexion,"select a.codigo, a.nombre, a.ci, a.fecha_hora_asignacion from Asignaciones a where p.estado=0");
-                    $sentencia->execute();
-                    $resultado=mysqli_stmt_get_result($sentencia);
+                    
+                }
+                else return null;
+            }
+            catch(Exception $e){
+                echo $e;
+            }
+            finally {
+                mysqli_close($conexion);
+            }
+        }
 
-                    // rellenado del array
-                    $paquetes=array();
-                    while( ($buffer=mysqli_fetch_array($resultado,MYSQLI_ASSOC)) !=false ){
-                        $paquete= new Paquete(
-                            $buffer["codigo"],
-                            $buffer["direccion_remitente"],
-                            $buffer["direccion_envio"],
-                            $buffer["fragil"],
-                            $buffer["perecedero"], 
-                            null,
-                            null,
-                            $buffer["fecha_entrega"],
-                            $buffer["estado"],
-                            null
-                        );
-                        $paquetes[]=$paquete;
-                    }
-                    if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
-                    return $paquetes;
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
-        static function agregarTransportista($nom, $ape, $ci, $direc, $tel, $foto, $pin){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    //$sentencia = "INSERT INTO Persona VALUES ($ci, $nom, $ape, $foto, $pin) INSERT INTO Transportista VALUES ($ci, $direc, $tel,);";
-                    //$sentencia->execute();
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
-        static function borrarTransportista($transportista){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    
-                    
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
-        static function modificarTransportista($oldCi, $nom, $ape, $ci, $direc, $tel, $foto, $pin){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
     }
-    
 ?>

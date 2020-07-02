@@ -32,7 +32,7 @@
         </div>
         <div id="menu2">
             <ul>
-            <li><a href="?logout=1" title=""><?php echo $_SESSION["transportista"]->getNombres()."  |  ";?>Cerrar Sesion</a></li>
+            <li><a href="?logout=1" accesskey="5" title=""><?php echo $_SESSION["transportista"]->getNombres()."  |  ";?>Cerrar Sesion</a></li>
             </ul>
         </div>
     </div>
@@ -90,7 +90,7 @@
                                                 echo '<td class="column1">'.$paquete->getFechaHoraDeAsignacion().'</td>';
                                                 echo '</tr>';
                                             }
-                                        else echo "<br><br>No se hicieron entregas aun.";
+                                        else echo "<br><br>No se has hecho entregas aun, vago.";
                                 echo '</tbody>
                                 </table>
                             </div>
