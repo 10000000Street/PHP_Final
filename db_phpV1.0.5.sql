@@ -6,7 +6,8 @@ create table Persona(
     nombres varchar(50) NOT NULL, 
     apellidos varchar(50) NOT NULL,
     foto varchar(255) NOT NULL,
-	pin char(32) NOT NULL);
+	pin char(32) NOT NULL,
+    desactivada boolean);
 
 create table Encargado (
 	ci int primary key,
