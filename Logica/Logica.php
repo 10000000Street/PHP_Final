@@ -7,43 +7,40 @@
        
         public function loginTransportista($ci,$password){
             $transportistas=Persistencia::pedirTransportistas();
-
+            
             if($transportistas!=null){
                 foreach($transportistas as $transportista){
-
-                    if($ci==$transportista->getCedula()){
+                    if($ci==$transportista->getCedula() && !$transportista->getDesactivada()){
                         if(md5($password)==$transportista->getPin()) {
                             session_start();
                             $_SESSION["cedula"] = $ci;
                             $_SESSION["tipo"] ="t";
                             $_SESSION["transportista"]=Persistencia::buscarTransportista($ci);
+
                             return true;
                         }
                     }
                 }  
-                return false;
             }
-            else return false;
+            return false;
         }
         public function loginEncargado($ci,$password){
             $encargados=Persistencia::pedirEncargados();
-
             if($encargados!=null){
                 foreach($encargados as $encargado){
-
                     if($ci==$encargado->getCedula()){
                         if(md5($password)==$encargado->getPin()) {
                             session_start();
                             $_SESSION["cedula"] = $ci;
                             $_SESSION["tipo"] ="e";
                             $_SESSION["encargado"]=Persistencia::buscarEncargado($ci);
+                            
                             return true;
                         }
                     }
                 }  
-                return false;
             }
-            else return false;
+            return false;
         }
         public static function logOut(){
             session_start(); 

@@ -6,8 +6,9 @@
         private $apellidos;
         private $pin;
         private $foto;
+        private $desactivada;
 
-        public function __construct($cedula,$nombres,$apellidos,$foto,$pin)
+        public function __construct($cedula,$nombres,$apellidos,$foto,$pin,$desactivada)
         {
             $this->cedula=$cedula;
             $this->nombres=$nombres;
@@ -46,15 +47,22 @@
         public function setFoto($foto){
             $this->foto=$foto;
         }
+        public function getDesactivada(){ 
+            return $this->desactivada;
+        }
+        public function setDesactivada($desactivada){
+            $this->desactivada=$desactivada;
+        }
+
     }
     class Transportista extends Persona{
         
         private $direccion;
         private $telefono;
         
-        public function __construct($cedula,$nombres,$apellidos,$foto,$pin,$direccion,$telefono) {
+        public function __construct($cedula,$nombres,$apellidos,$foto,$pin,$desactivada,$direccion,$telefono) {
 
-            parent::__construct($cedula,$nombres,$apellidos,$foto,$pin);
+            parent::__construct($cedula,$nombres,$apellidos,$foto,$pin,$desactivada);
 
             $this->direccion=$direccion;
             $this->telefono=$telefono;
@@ -77,8 +85,8 @@
         
         private $email;
         
-        public function __construct($cedula,$nombres,$apellidos,$foto,$pin,$email) {
-            parent::__construct($cedula,$nombres,$apellidos,$foto,$pin);
+        public function __construct($cedula,$nombres,$apellidos,$foto,$pin,$desactivada,$email) {
+            parent::__construct($cedula,$nombres,$apellidos,$foto,$pin,$desactivada);
 
             $this->email=$email;
         }

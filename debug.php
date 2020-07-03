@@ -1,23 +1,22 @@
-<?php 
-require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
-$gestorLogica=new Logica();
+<?php  
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/Persistencia.php");
+ 
+    $ricardo= new Transportista(13787574,'Ricardo','Mendez Ductruel','N/A','asdasdasdggf',false,'Nueva Troya 3619',22159412);
+    $resultado=Persistencia::agregarTransportista($ricardo);
+    echo "AgregarTransportista:".$resultado."<br>";
 
-$array=Array (73643802 => "qGx4Yn",
-87963526=> "B3J4Eg",
-44956533=> "RmYCMw",
-07242161=> "HQ6WCE",
+    $ricardo= new Transportista(13787574,'Ricardo','Mendez','N/A','1234',false,'Nueva Troya 3619',22159412);
 
-79041860=> "BYnVpE",
-28853514=> "A8PFWq",
-63737420=> "qn6FQ9",
-92416532=> "XTczHH"
-    );
+    //echo "ModificarTransportista:".Persistencia::modificarTransportista($ricardo,123456789);
 
-    foreach($array as $usuario=>$clave){
-        $acceso=$gestorLogica->loginTransportista($usuario,$clave);
-        var_dump($acceso);
-        echo "<br>";
-    }
+    echo "Desactivar:".Persistencia::desactivarTransportista(13787574)."<br>";
+    echo "Activar:".Persistencia::reactivarTransportista(13787574);
+
+
+
+
 
 
 ?>

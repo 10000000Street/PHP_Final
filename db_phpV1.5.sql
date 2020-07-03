@@ -19,7 +19,7 @@ create table Transportista (
 	ci int primary key,
 	direccion varchar(50) NOT NULL,
 	telefono int NOT NULL,
-	FOREIGN KEY (ci) REFERENCES Persona(ci) 
+	FOREIGN KEY (ci) REFERENCES Persona(ci) on update cascade
  ) ;
  
 create table Paquete (
@@ -180,22 +180,27 @@ begin
 					ROLLBACK;
 				END;
 		if (select count(*) from Transportista where ci=p_ci)=1 then
-			begin	
-				start transaction;
-					if(p_nombres is not null) then update Persona set nombres=p_nombres where ci=p_ci; 				end if;
-                    if(p_apellidos is not null) then update Persona set apellidos=p_apellidos where ci=p_ci;				end if;
-                    if(p_foto is not null) then update Persona set foto=p_foto where ci=p_ci;									end if;
-                    if(p_pin is not null) then update Persona set pin=p_pin where ci=p_ci;										end if;
-                    
-                    if(p_direccion is not null) then update Transportista set direccion=p_direccion where ci=p_ci;		end if;
-                    if(p_telefono is not null) then update Transportista set telefono=p_telefono where ci=p_ci;			end if;
-                    
-                    if(p_new_ci is not null) then update Persona set ci=p_new_ci where ci=p_ci;								end if;
-				commit;
-                set p_error=0;
-            end;
+			if (select count(*) from Transportista where ci=p_new_ci)=0 then /* sea null o sea una nueva cedula, lo va a frenar si encuentra algo*/
+				begin	
+					start transaction;
+						if(p_nombres is not null) then update Persona set nombres=p_nombres where ci=p_ci; 				end if;
+						if(p_apellidos is not null) then update Persona set apellidos=p_apellidos where ci=p_ci;				end if;
+						if(p_foto is not null) then update Persona set foto=p_foto where ci=p_ci;									end if;
+						if(p_pin is not null) then update Persona set pin=p_pin where ci=p_ci;										end if;
+						
+						if(p_direccion is not null) then update Transportista set direccion=p_direccion where ci=p_ci;		end if;
+						if(p_telefono is not null) then update Transportista set telefono=p_telefono where ci=p_ci;			end if;
+						
+						if(p_new_ci is not null) then update Persona set ci=p_new_ci where ci=p_ci;								end if;
+                        
+					commit;
+					set p_error=0;
+				end;
+            else 
+				set p_error=-2;
+			end if;
 		else 
-			set p_error=-2;
+			set p_error=-3;
         end if;
 	end$$;
     
