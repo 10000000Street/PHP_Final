@@ -145,3 +145,96 @@ create procedure asignarPaquete(p_transportista int ,p_paquete varchar(13),p_fec
 			set p_error=-2;
 		END IF;
     END$$;
+
+Delimiter $$;
+create procedure agregarTransportista(p_ci int,p_nombres varchar(50), p_apellidos varchar(50), p_foto varchar(255),p_pin char(32),p_direccion varchar(50),p_telefono int,out p_error int)
+	begin
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+				BEGIN
+					set p_error=-1;
+					ROLLBACK;
+				END;
+		if (select count(*) from Persona where ci=p_ci)=0 then
+			begin	
+				start transaction;
+					insert into Persona values (p_ci,p_nombres,p_apellidos,p_foto,p_pin,false);
+                    insert into Transportista values (p_ci,p_direccion,p_telefono);
+				commit;
+                set p_error=0;
+            end;
+		else 
+			set p_error=-2;
+        end if;
+		
+    
+	end$$;
+    
+Delimiter $$;
+create procedure modificarTransportista(p_ci int,p_new_ci int,p_nombres varchar(50), p_apellidos varchar(50), p_foto varchar(255),p_pin char(32),p_direccion varchar(50),p_telefono int,out p_error int)
+begin
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+				BEGIN
+					set p_error=-1;
+					ROLLBACK;
+				END;
+		if (select count(*) from Transportista where ci=p_ci)=1 then
+			begin	
+				start transaction;
+					if(p_nombres!=null) then update Persona set nombres=p_nombres where ci=p_ci; 			end if;
+                    if(p_apellidos!=null) then update Persona set apellidos=p_apellidos where ci=p_ci;		end if;
+                    if(p_foto!=null) then update Persona set foto=p_foto where ci=p_ci;						end if;
+                    if(p_pin!=null) then update Persona set pin=p_pin where ci=p_ci;						end if;
+                    
+                    if(p_direccion!=null) then update Transportista set direccion=p_direccion where ci=p_ci;end if;
+                    if(p_telefono!=null) then update Transportista set telefono=p_telefono where ci=p_ci;	end if;
+                    
+                    if(p_new_ci!=null) then update Persona set ci=p_new_ci where ci=p_ci;					end if;
+				
+				commit;
+                set p_error=0;
+            end;
+		else 
+			set p_error=-2;
+        end if;
+	end$$;
+    
+Delimiter $$;
+create procedure desactivarTransportista(p_ci int, out p_error int)
+	begin
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+			BEGIN
+				set p_error=-1;
+				ROLLBACK;
+			END;
+		if(select count(*) from Transportista where ci=p_ci AND desactivada=false)=1 then 
+			begin
+				start transaction;
+				update Persona set desactivada=true where ci=p_ci;
+                commit;
+                set p_error=0;
+			end;
+		else 
+			set p_error=-2;
+        end if;
+    end$$;
+
+Delimiter $$;    
+create procedure reactivarTransportista(p_ci int, out p_error int)
+	begin
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+			BEGIN
+				set p_error=-1;
+				ROLLBACK;
+			END;
+		if(select count(*) from Transportista where ci=p_ci AND desactivada=true)=1 then 
+			begin
+				start transaction;
+				update Persona set desactivada=false where ci=p_ci;
+                commit;
+                set p_error=0;
+			end;
+		else 
+			set p_error=-2;
+        end if;
+    end$$;
+    
