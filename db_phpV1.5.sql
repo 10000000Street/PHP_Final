@@ -6,8 +6,8 @@ create table Persona(
     nombres varchar(50) NOT NULL, 
     apellidos varchar(50) NOT NULL,
     foto varchar(255) NOT NULL,
-	pin char(32) NOT NULL/*,
-    desactivada boolean*/);
+	pin char(32) NOT NULL,
+    desactivada boolean);
 
 create table Encargado (
 	ci int primary key,
@@ -45,15 +45,15 @@ create table Paquete (
 /* INSERT Personas */
 
 INSERT INTO Persona VALUES
-(73643802,'Tomas','Merino','N/A','91f071452abaa5c84707643da58352c4'),
-(87963526,'Antoni','Encinas','N/A','e536f72e36f9164150947a1a06ee3dcf'),
-(44956533,'Clemente','Chen','N/A','b776ef5ff96773dc22822c6fe4702b13'),
-(07242161,'Jesus Miguel','Castellano','N/A','9409d561228e6469d79b923f08bbbc08'),
+(73643802,'Tomas','Merino','N/A','91f071452abaa5c84707643da58352c4',false),
+(87963526,'Antoni','Encinas','N/A','e536f72e36f9164150947a1a06ee3dcf',false),
+(44956533,'Clemente','Chen','N/A','b776ef5ff96773dc22822c6fe4702b13',false),
+(07242161,'Jesus Miguel','Castellano','N/A','9409d561228e6469d79b923f08bbbc08',false),
 
-(79041860,'Isidro','Velez','N/A','b0477b804684ad106a9d97bb8a2fd143'),
-(28853514,'Carlos Enrique','Oliveira','N/A','df3efb838fa90ec0a2f9e98eea4df89f'),
-(63737420,'Mauricio','Fuentes','N/A','2a31da6a505d1b300685a8203ad01d12'),
-(92416532,'Simon','Roldan','N/A','5231ee3a4914171201f7e5484cc2f23a');
+(79041860,'Isidro','Velez','N/A','b0477b804684ad106a9d97bb8a2fd143',false),
+(28853514,'Carlos Enrique','Oliveira','N/A','df3efb838fa90ec0a2f9e98eea4df89f',false),
+(63737420,'Mauricio','Fuentes','N/A','2a31da6a505d1b300685a8203ad01d12',false),
+(92416532,'Simon','Roldan','N/A','5231ee3a4914171201f7e5484cc2f23a',false);
 /*
 INSERT INTO Persona VALUES
 (73643802,'Tomas','Merino','N/A','qGx4Yn'),
@@ -154,19 +154,21 @@ create procedure agregarTransportista(p_ci int,p_nombres varchar(50), p_apellido
 					set p_error=-1;
 					ROLLBACK;
 				END;
-		if (select count(*) from Persona where ci=p_ci)=0 then
-			begin	
-				start transaction;
-					insert into Persona values (p_ci,p_nombres,p_apellidos,p_foto,p_pin,false);
-                    insert into Transportista values (p_ci,p_direccion,p_telefono);
-				commit;
-                set p_error=0;
-            end;
+		if p_ci is not null and p_nombres is not null and p_apellidos is not null and p_foto is not null and p_pin is not null and p_direccion is not null and p_telefono is not null then
+			if (select count(*) from Persona where ci=p_ci)=0 then
+				begin	
+					start transaction;
+						insert into Persona values (p_ci,p_nombres,p_apellidos,p_foto,p_pin,false);
+						insert into Transportista values (p_ci,p_direccion,p_telefono);
+					commit;
+					set p_error=0;
+				end;
+			else 
+				set p_error=-2; /* ya hay una ci registrada*/
+			end if;
 		else 
-			set p_error=-2;
-        end if;
-		
-    
+			set p_error=-3; /* parametros null*/ 
+		end if;
 	end$$;
     
 Delimiter $$;
@@ -180,16 +182,15 @@ begin
 		if (select count(*) from Transportista where ci=p_ci)=1 then
 			begin	
 				start transaction;
-					if(p_nombres!=null) then update Persona set nombres=p_nombres where ci=p_ci; 			end if;
-                    if(p_apellidos!=null) then update Persona set apellidos=p_apellidos where ci=p_ci;		end if;
-                    if(p_foto!=null) then update Persona set foto=p_foto where ci=p_ci;						end if;
-                    if(p_pin!=null) then update Persona set pin=p_pin where ci=p_ci;						end if;
+					if(p_nombres is not null) then update Persona set nombres=p_nombres where ci=p_ci; 				end if;
+                    if(p_apellidos is not null) then update Persona set apellidos=p_apellidos where ci=p_ci;				end if;
+                    if(p_foto is not null) then update Persona set foto=p_foto where ci=p_ci;									end if;
+                    if(p_pin is not null) then update Persona set pin=p_pin where ci=p_ci;										end if;
                     
-                    if(p_direccion!=null) then update Transportista set direccion=p_direccion where ci=p_ci;end if;
-                    if(p_telefono!=null) then update Transportista set telefono=p_telefono where ci=p_ci;	end if;
+                    if(p_direccion is not null) then update Transportista set direccion=p_direccion where ci=p_ci;		end if;
+                    if(p_telefono is not null) then update Transportista set telefono=p_telefono where ci=p_ci;			end if;
                     
-                    if(p_new_ci!=null) then update Persona set ci=p_new_ci where ci=p_ci;					end if;
-				
+                    if(p_new_ci is not null) then update Persona set ci=p_new_ci where ci=p_ci;								end if;
 				commit;
                 set p_error=0;
             end;
@@ -203,10 +204,9 @@ create procedure desactivarTransportista(p_ci int, out p_error int)
 	begin
 		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
 			BEGIN
-				set p_error=-1;
 				ROLLBACK;
 			END;
-		if(select count(*) from Transportista where ci=p_ci AND desactivada=false)=1 then 
+		if(select count(*) from Transportista t, Persona p where p.ci=t.ci and t.ci=p_ci AND p.desactivada=false)=1 then 
 			begin
 				start transaction;
 				update Persona set desactivada=true where ci=p_ci;
@@ -226,7 +226,7 @@ create procedure reactivarTransportista(p_ci int, out p_error int)
 				set p_error=-1;
 				ROLLBACK;
 			END;
-		if(select count(*) from Transportista where ci=p_ci AND desactivada=true)=1 then 
+		if(select count(*) from Transportista t, Persona p where p.ci=t.ci and t.ci=p_ci AND p.desactivada=true)=1 then 
 			begin
 				start transaction;
 				update Persona set desactivada=false where ci=p_ci;
