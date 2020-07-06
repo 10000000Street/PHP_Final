@@ -148,7 +148,6 @@
             }
 
         }
-
         static function pedirPaquete($codigo){
             
             try{
@@ -391,6 +390,5 @@
                 mysqli_close($conexion);
             }
         }
-
     }
 ?>

@@ -68,6 +68,8 @@
         public static function pedirPaquetesEntregados($transportista){
             return Persistencia::pedirPaquetesEntregados($transportista);
         }
-
+        public static function pedirPaquetes(){
+            return Persistencia::pedirPaquetes();
+        }
     }
 ?>
