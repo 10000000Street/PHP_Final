@@ -9,6 +9,7 @@
     }
 
     if (isset($_SESSION["encargado"])){
+        $envios=Persistencia::pedirPaquetes();
 
     }
     else header("Location: ../bienvenida.php");
@@ -54,7 +55,7 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Listado-Alta-Baja-Modificacion de Paquetes</a></h2>
+            <h2><a style="color:white;">Historial de Envios</a></h2>
 		    <div id="banner">
                 <div class="limiter">
                     <div class="container-table100">
@@ -64,146 +65,35 @@
                                     <thead>
                                         <tr class="table100-head">
                                             <th class="column1">Codigo</th>
-                                            <th class="column7">Fecha de entrega (Estimada)</th>
-                                            <th class="column7">Fecha de entrega</th>
                                             <th class="column8">Estado</th>
                                             <th class="column9">Fecha y Hora de Asignacion</th>
+                                            <th class="column7">Fecha de entrega (Estimada)</th>
+                                            <th class="column7">Fecha de entrega</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6"></td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6">26/7/2020</td>
-                                            <td class="column6">Enviado</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6"></td>
-                                            <td class="column6"></td>
-                                            <td class="column6">Sin Asignar</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6">26/7/2020</td>
-                                            <td class="column6">Enviado</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6"></td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6">26/7/2020</td>
-                                            <td class="column6">Enviado</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6"></td>
-                                            <td class="column6"></td>
-                                            <td class="column6">Sin Asignar</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6"></td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6">26/7/2020</td>
-                                            <td class="column6">Enviado</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6"></td>
-                                            <td class="column6"></td>
-                                            <td class="column6">Sin Asignar</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6"></td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6">26/7/2020</td>
-                                            <td class="column6">Enviado</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6"></td>
-                                            <td class="column6"></td>
-                                            <td class="column6">Sin Asignar</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6"></td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6">26/7/2020</td>
-                                            <td class="column6">Enviado</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6"></td>
-                                            <td class="column6"></td>
-                                            <td class="column6">Sin Asignar</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6"></td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">27/7/2020</td>
-                                            <td class="column6">26/7/2020</td>
-                                            <td class="column6">Enviado</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6"></td>
-                                            <td class="column6"></td>
-                                            <td class="column6">Sin Asignar</td>
-                                            <td class="column6">27/7/2020<br>23:43</td>
-                                        </tr>
+                                    <?php 
+                                    function convertirEstado($estado){
+                                        $est=null;
+                                        switch ($estado){
+                                            case -1: $est = 'Sin Asignar';
+                                            break;
+                                            case 0: $est = 'En Transito';
+                                            break;
+                                            case 1: $est = 'Entregado';
+                                            break;   
+                                        }
+                                        return $est; //puniendo en practicasion el uso de uan return
+                                    }
+                                    foreach($envios as $envio){
+                                        echo '<tr><td class="column1">'.$envio->getCodigo().'</td>
+                                            <td class="column6">'.convertirEstado($envio->getEstado()).'</td>
+                                            <td class="column6">'.$envio->getFechaHoraDeAsignacion().'</td>
+                                            <td class="column6">'.$envio->getFechaEstimada().'</td>
+                                            <td class="column6">'.$envio->getFechaDeEntrega().'</td></tr>';
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
