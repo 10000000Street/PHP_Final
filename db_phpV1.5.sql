@@ -146,6 +146,10 @@ create procedure asignarPaquete(p_transportista int ,p_paquete varchar(13),p_fec
 		END IF;
     END$$;
 
+
+/**************************************************
+     Encargado
+**************************************************/
 Delimiter $$;
 create procedure agregarTransportista(p_ci int,p_nombres varchar(50), p_apellidos varchar(50), p_foto varchar(255),p_pin char(32),p_direccion varchar(50),p_telefono int,out p_error int)
 	begin
@@ -237,4 +241,3 @@ create procedure reactivarTransportista(p_ci int, out p_error int)
 			set p_error=-2;
         end if;
     end$$;
-    
