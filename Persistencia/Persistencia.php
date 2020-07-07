@@ -498,5 +498,78 @@
                 mysqli_close($conexion);
             }
         }
+        static function agregarPaquete($paquete){
+            try{
+                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
+                if($conexion){
+                    $sentencia=mysqli_prepare($conexion,"call ".self::$db.".agregarPaquete(?,?,?,?,?,@resultado)");
+                    mysqli_stmt_bind_param($sentencia,"sssii",
+                        $paquete->getCodigo(),
+                        $paquete->getRemitente(),
+                        $paquete->getDestinatario(),
+                        $paquete->getFragil(),
+                        $paquete->getPerecedero()
+                    );
+                    $sentencia->execute();
+                    $resultado=mysqli_query($conexion,"select @resultado");
+
+                    return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+                }
+                else return null;
+            }
+            catch(Exception $e){
+                echo $e;
+            }
+            finally {
+                mysqli_close($conexion);
+            }
+        }
+        static function eliminarPaquete($codigo){
+            try{
+                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
+                if($conexion){
+                    $sentencia=mysqli_prepare($conexion,"call ".self::$db.".eliminarPaquete(?,@resultado)");
+                    mysqli_stmt_bind_param($sentencia,"s",$codigo);
+                    $sentencia->execute();
+                    $resultado=mysqli_query($conexion,"select @resultado");
+
+                    return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+                }
+                else return null;
+            }
+            catch(Exception $e){
+                echo $e;
+            }
+            finally {
+                mysqli_close($conexion);
+            }
+        }
+        static function modificarPaquete($codigo,$paquete){
+            try{
+                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
+                if($conexion){
+                    $sentencia=mysqli_prepare($conexion,"call ".self::$db.".modificarPaquete(?,?,?,?,?,?,@resultado)");
+                    mysqli_stmt_bind_param($sentencia,"ssssii",
+                        $codigo,
+                        $paquete->getCodigo(),
+                        $paquete->getRemitente(),
+                        $paquete->getDestinatario(),
+                        $paquete->getFragil(),
+                        $paquete->getPerecedero()
+                    );
+                    $sentencia->execute();
+                    $resultado=mysqli_query($conexion,"select @resultado");
+
+                    return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+                }
+                else return null;
+            }
+            catch(Exception $e){
+                echo $e;
+            }
+            finally {
+                mysqli_close($conexion);
+            }
+        }
     }
 ?>

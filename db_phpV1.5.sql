@@ -39,7 +39,7 @@ create table Paquete (
 	fecha_hora_asignacion datetime not null,
     foreign key (codigo) references Paquete(codigo),
     foreign key (ci) references Transportista(ci),
-	primary key (codigo,ci)
+	primary key (codigo,ci) /* planeo que la clave primaria solo sea el codigo del paquete*/ 
 );
 
 /* INSERT Personas */
@@ -243,3 +243,86 @@ create procedure reactivarTransportista(p_ci int, out p_error int)
         end if;
     end$$;
     
+/*******************
+     PAQUETE  
+********************/
+
+	codigo varchar(13) primary key, 
+	direccion_remitente varchar(100) not null, 
+	direccion_envio varchar(100) not null, 
+	fragil boolean not null, 
+	perecedero boolean not null, 
+	fecha_entrega date, 
+	estado smallint not null check (estado BETWEEN -1 and 1)
+    
+Delimiter $$;
+create procedure agregarPaquete(p_cod varchar(13),p_direcRemitente varchar(100), p_direcEnvio varchar(100), p_fragil boolean,p_perecedero boolean,out p_error int)
+	begin
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+				BEGIN
+					set p_error=-1;
+					ROLLBACK;
+				END;
+		if p_cod is not null and p_direcRemitente is not null and p_direcEnvio is not null and p_fragil is not null and p_perecedero is not null then
+			if (select count(*) from Paquete where codigo=p_cod)=0 then
+				begin	
+					start transaction;
+						insert into Paquete values (p_cod,p_direcRemitente,p_direcEnvio,p_fragil,p_perecedero,null,-1);
+					commit;
+					set p_error=0;
+				end;
+			else 
+				set p_error=-2;
+			end if;
+		else 
+			set p_error=-3;
+		end if;
+	end$$;
+    
+Delimiter $$;
+create procedure eliminarPaquete(p_cod varchar(13), out p_error int)
+	begin
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+			BEGIN
+				set p_error=-1;
+				ROLLBACK;
+			END;
+		if( select count(*) from Paquete where codigo=p_cod and estado=-1) =1 then 
+			begin
+				start transaction;
+					DELETE from Paquete where codigo=p_cod;
+                commit;
+                set p_error=0;
+			end;
+		else 
+			set p_error=-2;
+        end if;
+    end$$;
+    
+Delimiter $$;
+create procedure modificarPaquete(p_cod varchar(13),p_new_cod varchar(13),p_direcRemitente varchar(100), p_direcEnvio varchar(100), p_fragil boolean,p_perecedero boolean,out p_error int)
+begin
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+				BEGIN
+					set p_error=-1;
+					ROLLBACK;
+				END;
+		if p_cod is not null and (select count(*) from Paquete where codigo=p_new_cod)=0 then
+			if (select count(*) from Paquete where codigo=p_cod and estado=-1) =1  and (select count(*) from Asignaciones where codigo=p_cod)=0 then
+				begin	
+					start transaction;
+						if(p_direcRemitente is not null) 	then update Paquete set direccion_remitente=p_direcRemitente 	where codigo=p_cod; 	end if;
+						if(p_direcEnvio is not null)			then update Paquete set direccion_envio=p_direcEnvio 				where codigo=p_cod;	end if;
+						if(p_fragil is not null) 				then update Paquete set fragil=p_fragil 										where codigo=p_cod;	end if;
+						if(p_perecedero is not null)		then update Paquete set perecedero=p_perecedero 					where codigo=p_cod;	end if;
+						if(p_new_cod is not null) 			then update Paquete set codigo=p_new_cod								where codigo=p_cod;	end if;
+					commit;
+					set p_error=0;
+				end;
+			else 
+				set p_error=-2;
+			end if;
+		else 
+			set p_error=-3;
+		end if;
+	end$$;

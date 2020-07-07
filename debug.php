@@ -2,17 +2,14 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/Persistencia.php");
- 
-    $ricardo= new Transportista(13787574,'Ricardo','Mendez Ductruel','N/A','asdasdasdggf',false,'Nueva Troya 3619',22159412);
-    $resultado=Persistencia::agregarTransportista($ricardo);
-    echo "AgregarTransportista:".$resultado."<br>";
 
-    $ricardo= new Transportista(13787574,'Ricardo','Mendez','N/A','1234',false,'Nueva Troya 3619',22159412);
+    function paqueteNuevo($codigo,$remitente,$detinatario,$fragil,$perecedero){
+        return new Paquete($codigo,$remitente,$detinatario,$fragil,$perecedero,null,null,null,-1,null);
+    }
+    $paquete = paqueteNuevo(null,"remitente","destinatario",true,false);
 
-    //echo "ModificarTransportista:".Persistencia::modificarTransportista($ricardo,123456789);
+    echo Persistencia::modificarPaquete('RT907538385HK',$paquete);
 
-    echo "Desactivar:".Persistencia::desactivarTransportista(13787574)."<br>";
-    echo "Activar:".Persistencia::reactivarTransportista(13787574);
 
 
 
