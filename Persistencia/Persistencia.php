@@ -194,7 +194,7 @@
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
                 if($conexion){
 
-                    $resultado= mysqli_query($conexion,"select p.*,a.ci,a.fecha_estimada_entrega,a.fecha_hora_asignacion from Paquete p left outer join  Asignaciones a on (a.codigo=p.codigo)");
+                    $resultado= mysqli_query($conexion,"select p.*,a.ci,a.fecha_estimada_entrega,a.fecha_hora_asignacion from Paquete p left outer join  Asignaciones a on (a.codigo=p.codigo) order by p.estado");
                     // rellenado del array
                     $paquetes=array();
                     while( ($buffer=mysqli_fetch_array($resultado,MYSQLI_ASSOC)) !=false ){
