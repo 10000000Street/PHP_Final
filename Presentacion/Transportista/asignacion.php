@@ -16,7 +16,7 @@
 
     if (isset($_SESSION["transportista"])){
         $transportista=$_SESSION["transportista"];
-        $paquetes= Logica::pedirPaquetesSinAsignar();
+        $paquetes= Logica::pedirPaquetes(-1);
         $paqueteActivo=Logica::pedirPaqueteActivo($transportista);
     }
     else header("Location: ../bienvenida.php");

@@ -53,8 +53,8 @@
         public static function pedirPaqueteActivo($tranportista){
             return Persistencia::paqueteActivo($tranportista);
         }
-        public static function pedirPaquetesSinAsignar(){
-            return Persistencia::pedirPaquetesSinAsignar();
+        public static function pedirPaquetes($estado){
+            return Persistencia::pedirPaquetes($estado);
         }
         public static function asignarPaquete($tranportista,$paquete,$fechaEstimada){
             return Persistencia::asignarPaquete($tranportista,$paquete,$fechaEstimada);
@@ -65,8 +65,8 @@
         public static function pedirPaquetesEntregados($transportista){
             return Persistencia::pedirPaquetesEntregados($transportista);
         }
-        public static function pedirPaquetes(){
-            return Persistencia::pedirPaquetes();
+        static function buscarTransportista($ci){
+            return Persistencia::buscarTransportista($ci);
         }
     }
 ?>

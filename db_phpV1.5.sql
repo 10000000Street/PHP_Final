@@ -308,7 +308,7 @@ begin
 					ROLLBACK;
 				END;
 		if p_cod is not null and (select count(*) from Paquete where codigo=p_new_cod)=0 then
-			if (select count(*) from Paquete where codigo=p_cod and estado=-1) =1  and (select count(*) from Asignaciones where codigo=p_cod)=0 then
+			if (select count(*) from Paquete where codigo=p_cod and estado=-1) =1 and (select count(*) from Asignaciones where codigo=p_cod)=0 then
 				begin	
 					start transaction;
 						if(p_direcRemitente is not null) 	then update Paquete set direccion_remitente=p_direcRemitente 	where codigo=p_cod; 	end if;

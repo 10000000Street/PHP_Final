@@ -9,7 +9,7 @@
     }
 
     if (isset($_SESSION["encargado"])){
-        $envios=Persistencia::pedirPaquetes();
+        $envios=Logica::pedirPaquete(null);
 
     }
     else header("Location: ../bienvenida.php");

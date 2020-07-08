@@ -189,13 +189,20 @@
                 mysqli_close($conexion);
             }
         }
-        static function pedirPaquetes(){
+
+        static function pedirPaquetes($estado){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
                 if($conexion){
+                    $query="
+                    select p.*,a.ci,a.fecha_estimada_entrega,a.fecha_hora_asignacion 
+                    from Paquete p left outer join  Asignaciones a on (a.codigo=p.codigo)";
 
-                    $resultado= mysqli_query($conexion,"select p.*,a.ci,a.fecha_estimada_entrega,a.fecha_hora_asignacion from Paquete p left outer join  Asignaciones a on (a.codigo=p.codigo) order by p.estado");
-                    // rellenado del array
+                    if($estado!=null)$query=$query." where estado=".$estado;
+
+                    $query=$query." order by p.estado";
+
+                    $resultado= mysqli_query($conexion,$query);
                     $paquetes=array();
                     while( ($buffer=mysqli_fetch_array($resultado,MYSQLI_ASSOC)) !=false ){
                         $paquete= new Paquete(
@@ -224,41 +231,6 @@
                 mysqli_close($conexion);
             }
         }  
-        static function pedirPaquetesSinAsignar(){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-
-                    $resultado= mysqli_query($conexion,"select * from paquete where estado=-1");
-                    // rellenado del array
-                    $paquetes=array();
-                    while( ($buffer=mysqli_fetch_array($resultado,MYSQLI_ASSOC)) !=false ){
-                        $paquete= new Paquete(
-                            $buffer["codigo"],
-                            $buffer["direccion_remitente"],
-                            $buffer["direccion_envio"],
-                            $buffer["fragil"],
-                            $buffer["perecedero"], 
-                            null,
-                            null,
-                            $buffer["fecha_entrega"],
-                            $buffer["estado"],
-                            null
-                        );
-                        $paquetes[]=$paquete;
-                    }
-                    if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
-                    return $paquetes;
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
         static function paqueteActivo($transportista){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);

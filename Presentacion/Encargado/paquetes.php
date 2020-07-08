@@ -9,7 +9,7 @@
     }
 
     if (isset($_SESSION["encargado"])){
-
+        $paquetes=Logica::pedirPaquetes(null);
     }
     else header("Location: ../bienvenida.php");
     
@@ -72,15 +72,39 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column6">En Transito</td>
-                                            <td class="column4">Si</td>
-                                            <td class="column5">No</td>
-                                            <th class="column5"><a href="modificarPaquete.php" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                            <th class="column5"><a href="borrarPaquete.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
-                                        </tr>
-                                        
+                                    <?php 
+                                    function convertirEstado($estado){
+                                        $est=null;
+                                        switch ($estado){
+                                            case -1: $est = 'Sin Asignar';
+                                            break;
+                                            case 0: $est = 'En Transito';
+                                            break;
+                                            case 1: $est = 'Entregado';
+                                            break;   
+                                        }
+                                        return $est;
+                                    }
+                                    function auxFunction($boolean){
+                                        if($boolean) return "Si";
+                                        else return "No"; 
+                                    }
+                                    function echoLink($estado,$direccion){
+                                        if($estado==-1) return ''.$direccion.'"';
+                                    }
+
+                                    foreach ($paquetes as $paquete){
+                                        echo'
+                                    <tr>
+                                        <td class="column1">'.$paquete->getCodigo().'</td>
+                                        <td class="column6">'.convertirEstado($paquete->getEstado()).'</td>
+                                        <td class="column4">'.auxFunction($paquete->getFragil()).'</td>
+                                        <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>
+                                        <th class="column5"><a href="'.echoLink($paquete->getEstado(),"modificarPaquete.php").'" class="buttonLogin buttonLogin2">Modificar</a></th>
+                                        <th class="column5"><a href="'.echoLink($paquete->getEstado(),"borrarPaquete.php").'" class="buttonLogin buttonLoginBor">Borrar</a></th>
+                                    </tr>';
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>

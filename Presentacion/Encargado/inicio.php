@@ -9,7 +9,7 @@
     }
 
     if (isset($_SESSION["encargado"])){
-
+        $paquetesActivos=Logica::pedirPaquetes(0);
     }
     else header("Location: ../bienvenida.php");
     
@@ -64,62 +64,24 @@
                                     <thead>
                                         <tr class="table100-head">
                                             <th class="column1">Codigo del Paquete</th>
-                                            <th class="column1">Estado del Paquete</th>
                                             <th class="column3">Nombre Transportista</th>
                                             <th class="column4">C.I. Transportista</th>
                                             <th class="column5">Fecha y Hora de Asignacion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php   
+                                        foreach ($paquetesActivos as $paquete){
+                                            $transportista=Logica::buscarTransportista($paquete->getCi());
+                                            echo '
                                         <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column1">En Transito</td>
-                                            <td class="column2">Tadeo Goday</td>
-                                            <td class="column3">4.121.231-2</td>
-                                            <td class="column4">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column1">En Transito</td>
-                                            <td class="column2">Juan Manuel</td>
-                                            <td class="column3">4.121.231-2</td>
-                                            <td class="column4">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column1">En Transito</td>
-                                            <td class="column2">Federico Mendez</td>
-                                            <td class="column3">4.121.231-2</td>
-                                            <td class="column4">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column1">En Transito</td>
-                                            <td class="column2">Tuvieja Uwu</td>
-                                            <td class="column3">4.121.231-2</td>
-                                            <td class="column4">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column1">En Transito</td>
-                                            <td class="column2">Diego Leotero</td>
-                                            <td class="column3">4.121.231-2</td>
-                                            <td class="column4">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column1">En Transito</td>
-                                            <td class="column2">Tadeo Goday</td>
-                                            <td class="column3">4.121.231-2</td>
-                                            <td class="column4">27/7/2020<br>23:43</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">200398</td>
-                                            <td class="column1">En Transito</td>
-                                            <td class="column2">Tadeo Goday</td>
-                                            <td class="column3">4.121.231-2</td>
-                                            <td class="column4">27/7/2020<br>23:43</td>
-                                        </tr>
+                                            <td class="column1">'.$paquete->getCodigo().'</td>
+                                            <td class="column2">'.$transportista->getNombres().' '.$transportista->getApellidos().'</td>
+                                            <td class="column3">'.$paquete->getCi().'</td>
+                                            <td class="column4">'.$paquete->getFechaHoraDeAsignacion().'</td>
+                                        </tr>';
+                                        }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
