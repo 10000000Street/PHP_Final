@@ -99,10 +99,10 @@
                                         <td class="column1">'.$paquete->getCodigo().'</td>
                                         <td class="column6">'.convertirEstado($paquete->getEstado()).'</td>
                                         <td class="column4">'.auxFunction($paquete->getFragil()).'</td>
-                                        <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>
-                                        <th class="column5"><a href="'.echoLink($paquete->getEstado(),"modificarPaquete.php").'" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                        <th class="column5"><a href="'.echoLink($paquete->getEstado(),"borrarPaquete.php").'" class="buttonLogin buttonLoginBor">Borrar</a></th>
-                                    </tr>';
+                                        <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>';
+    if($paquete->getEstado()==-1) echo '<th class="column5"><a href="'.echoLink($paquete->getEstado(),"modificarPaquete.php").'" class="buttonLogin buttonLogin2">Modificar</a></th>
+                                        <th class="column5"><a href="'.echoLink($paquete->getEstado(),"borrarPaquete.php").'" class="buttonLogin buttonLoginBor">Borrar</a></th>';
+                            echo   '</tr>';
                                     }
                                     ?>
                                     </tbody>
