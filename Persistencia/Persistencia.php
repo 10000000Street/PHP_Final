@@ -194,13 +194,14 @@
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
                 if($conexion){
-                    $query="
-                    select p.*,a.ci,a.fecha_estimada_entrega,a.fecha_hora_asignacion 
-                    from Paquete p left outer join  Asignaciones a on (a.codigo=p.codigo)";
+                    $adosar="";
+                    if($estado!==null) $adosar=" where estado=".$estado." ";
 
-                    if($estado!=null)$query=$query." where estado=".$estado;
-
-                    $query=$query." order by p.estado";
+                    $query="select p.*,a.ci,a.fecha_estimada_entrega,a.fecha_hora_asignacion 
+                    from Paquete p 
+                    left outer join  Asignaciones a on (a.codigo=p.codigo)".
+                    $adosar.
+                    " order by p.estado";
 
                     $resultado= mysqli_query($conexion,$query);
                     $paquetes=array();

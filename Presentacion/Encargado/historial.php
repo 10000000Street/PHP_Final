@@ -9,7 +9,7 @@
     }
 
     if (isset($_SESSION["encargado"])){
-        $envios=Logica::pedirPaquete(null);
+        $envios=Logica::pedirPaquetes(null);
 
     }
     else header("Location: ../bienvenida.php");
@@ -84,14 +84,32 @@
                                             case 1: $est = 'Entregado';
                                             break;   
                                         }
-                                        return $est; //puniendo en practicasion el uso de uan return
+                                        return $est;
+                                    }
+                                    function errorFAsignasion($FAsignacion){
+                                        if($FAsignacion==null){
+                                            return'No asignado.';
+                                        }
+                                        else return $FAsignacion;
+                                    }
+                                    function errorFEstimada($FEstimada){
+                                        if($FEstimada==null){
+                                            return'Sin fecha estimada.';
+                                        }
+                                        else return $FEstimada;
+                                    }
+                                    function errorFEntrega($FEntrega){
+                                        if($FEntrega==null){
+                                            return 'No entregado.';
+                                        }
+                                        else return $FEntrega;
                                     }
                                     foreach($envios as $envio){
                                         echo '<tr><td class="column1">'.$envio->getCodigo().'</td>
                                             <td class="column6">'.convertirEstado($envio->getEstado()).'</td>
-                                            <td class="column6">'.$envio->getFechaHoraDeAsignacion().'</td>
-                                            <td class="column6">'.$envio->getFechaEstimada().'</td>
-                                            <td class="column6">'.$envio->getFechaDeEntrega().'</td></tr>';
+                                            <td class="column6">'.errorFAsignasion($envio->getFechaHoraDeAsignacion()).'</td>
+                                            <td class="column6">'.errorFEstimada($envio->getFechaEstimada()).'</td>
+                                            <td class="column6">'.errorFEntrega($envio->getFechaDeEntrega()).'</td></tr>';
                                     }
                                     ?>
                                     </tbody>
