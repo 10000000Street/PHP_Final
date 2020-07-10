@@ -65,8 +65,27 @@
         public static function pedirPaquetesEntregados($transportista){
             return Persistencia::pedirPaquetesEntregados($transportista);
         }
-        static function buscarTransportista($ci){
+        public static function buscarTransportista($ci){
             return Persistencia::buscarTransportista($ci);
         }
+        public static function agregarPaquete($paquete){
+            return Persistencia::agregarPaquete($paquete);
+        }
+        public static function eliminarPaquete($codigo){
+            return Persistencia::eliminarPaquete($codigo);
+        }
+        public static function modificarPaquete($codigo,$paquete){
+            $paqueteOriginal=Persistencia::pedirPaquete($codigo);
+            $paqueteMod=clone $paquete;
+
+            if($paqueteOriginal->getCodigo()===$paquete->getCodigo()) $paqueteMod->setCodigo(null);
+            if($paqueteOriginal->getRemitente()===$paquete->getRemitente()) $paqueteMod->setRemitente(null);
+            if($paqueteOriginal->getDestinatario()===$paquete->getDestinatario()) $paqueteMod->setDestinatario(null);
+            if($paqueteOriginal->getFragil()===$paquete->getFragil()) $paqueteMod->setFragil(null);
+            if($paqueteOriginal->getPerecedero()===$paquete->getPerecedero()) $paqueteMod->setPerecedero(null);
+    
+            return Persistencia::modificarPaquete($codigo, $paqueteMod);
+        }
+
     }
 ?>

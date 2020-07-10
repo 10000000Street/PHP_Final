@@ -272,10 +272,10 @@ create procedure agregarPaquete(p_cod varchar(13),p_direcRemitente varchar(100),
 					set p_error=0;
 				end;
 			else 
-				set p_error=-2;
+				set p_error=-2; /* paquete preexistente */
 			end if;
 		else 
-			set p_error=-3;
+			set p_error=-3; /* campos nulls*/
 		end if;
 	end$$;
     

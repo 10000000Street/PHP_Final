@@ -44,7 +44,7 @@
         public function getRemitente(){
             return $this->remitente;
         }
-        public function set($remitente){
+        public function setRemitente($remitente){
             $this->remitente=$remitente;
         }
         public function getDestinatario(){

@@ -7,8 +7,40 @@
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-
+    $error="";
     if (isset($_SESSION["encargado"])){
+        if(isset($_POST["modificar"])){ // la carga inicial de la pagina
+            $paquete=Logica::pedirPaquete($_POST["codigo"]);
+        }
+        else {
+            if(isset($_POST["modificarPaquete"])){ // el llamado a la modificacion en si
+                $paquete=Logica::pedirPaquete($_POST["codigo"]);
+                $paqueteModificado=new Paquete(
+                    $_POST["codigoNuevo"],$_POST["origen"],$_POST["destino"],
+                    isset($_POST["fragil"]),isset($_POST["perecedero"]),
+                    null,null,null,-1,null
+                );
+                $resultado=Logica::modificarPaquete($_POST["codigo"],$paqueteModificado);
+                if($resultado==0){
+                    header("Location: paquetes.php");
+                    exit;
+                }
+                else{
+                    if($resultado==-2){
+                        $error="";
+                    }
+                    else{
+                        ;//header a pagina de error
+                    }
+                }
+    
+            }
+            else {
+                header("Location: paquetes.php");
+                exit; 
+            }
+            
+        }
 
     }
     else header("Location: ../bienvenida.php");
@@ -57,50 +89,59 @@
         <div id="main">
             <h2><a style="color:white;">Modificar Paquete</a></h2>
 		    <div id="banner">
-                <div class="limiter">
-                    <div class="container-table100">
-                        <div class="wrap-table100">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">Codigo del Paquete</th>
-                                            <th class="column5">Direccion Remitente</th> 
-                                            <th class="column5">Direccion Destino</th> 
-                                            <th class="column4">Fragil</th>
-                                            <th class="column5">Perecedero</th>       
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="column1">231544563</td>
-                                            <td class="column6">Tallugar 1256</td>
-                                            <td class="column6">Tallugar 1256</td>
-                                            <td class="column4">Si</td>
-                                            <td class="column5">No</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1"><input style="height: 35px; width: 9em; font-size: 20px;" type="number"></td>
-                                            <td class="column6"><input style="height: 35px; width: 10em; font-size: 20px;" type="text"></td>
-                                            <td class="column6"><input style="height: 35px; width: 10em; font-size: 20px;" type="text"></td>
-                                            <td class="column4"><input type="checkbox"></td>
-                                            <td class="column5"><input type="checkbox"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>  
+                <form method="post" action="modificarPaquete.php">
+                    <div class="limiter">
+                        <div class="container-table100">
+                            <div class="wrap-table100">
+                                <div class="table100">
+                                    <table>
+                                        <thead>
+                                            <tr class="table100-head">
+                                                <th class="column1">Codigo del Paquete</th>
+                                                <th class="column5">Direccion Remitente</th> 
+                                                <th class="column5">Direccion Destino</th> 
+                                                <th class="column4">Fragil</th>
+                                                <th class="column5">Perecedero</th>       
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                            function auxFunction($boolean){
+                                                if($boolean) return "Si";
+                                                else return "No"; 
+                                            }
+                                            echo'
+                                                <tr>
+                                                    <td class="column1">'.$paquete->getCodigo().'</td>
+                                                    <td class="column6">'.$paquete->getRemitente().'</td>
+                                                    <td class="column6">'.$paquete->getDestinatario().'</td>
+                                                    <td class="column4">'.auxFunction($paquete->getFragil()).'</td>
+                                                    <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>
+                                                ';
+                                            ?>
+                                            <tr>
+                                                <td class="column1"><input name="codigoNuevo" type="text" style="height: 35px; width: 9em; font-size: 20px;" value="<?php echo $paquete->getCodigo()?>" required></td>
+                                                <td class="column6"><input name="origen" type="text" style="height: 35px; width: 10em; font-size: 20px;" value="<?php echo $paquete->getRemitente()?>" required></td>
+                                                <td class="column6"><input name="destino" type="text" style="height: 35px; width: 10em; font-size: 20px;" value="<?php echo $paquete->getDestinatario()?>" required></td>
+                                                <td class="column4"><input name="fragil" type="checkbox" <?php if($paquete->getFragil()) echo 'checked'?>></td>
+                                                <td class="column5"><input name="perecedero" type="checkbox" <?php if($paquete->getPerecedero()) echo 'checked'?>></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </div>
                         </div>
                     </div>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="paquetes.php" class="buttonLogin buttonLogin1">
-                    Cancelar
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                <!-- formulario -->
-                <a href="" class="buttonLogin buttonLogin1">
-                    Modificar
-                </a>   
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="paquetes.php" class="buttonLogin buttonLogin1" style="width:186px;">
+                        Cancelar
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <input type="hidden" name="codigo" value="<?php echo $_POST["codigo"]?>"> 
+                    <input type="submit" name="modificarPaquete" value="Modificar" class="buttonLogin buttonLogin1" style="width:250px;">
+                    <br><br>
+                    <?php echo $error;?> 
+                </form>   
             </div>
         </div>
     </div>

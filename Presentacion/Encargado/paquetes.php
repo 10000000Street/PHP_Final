@@ -89,10 +89,6 @@
                                         if($boolean) return "Si";
                                         else return "No"; 
                                     }
-                                    function echoLink($estado,$direccion){
-                                        if($estado==-1) return ''.$direccion.'"';
-                                    }
-
                                     foreach ($paquetes as $paquete){
                                         echo'
                                     <tr>
@@ -100,8 +96,18 @@
                                         <td class="column6">'.convertirEstado($paquete->getEstado()).'</td>
                                         <td class="column4">'.auxFunction($paquete->getFragil()).'</td>
                                         <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>';
-    if($paquete->getEstado()==-1) echo '<th class="column5"><a href="'.echoLink($paquete->getEstado(),"modificarPaquete.php").'" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                        <th class="column5"><a href="'.echoLink($paquete->getEstado(),"borrarPaquete.php").'" class="buttonLogin buttonLoginBor">Borrar</a></th>';
+    if($paquete->getEstado()==-1) echo '<form method="post" action="modificarPaquete.php">
+                                            <th class="column5">
+                                                <input type="hidden" name="codigo" value="'.$paquete->getCodigo().'">
+                                                <input type="submit" name="modificar" value="Modificar"  class="buttonLogin buttonLogin2">
+                                            </th>
+                                        </form>
+                                        <form method="post" action="borrarPaquete.php">
+                                            <th class="column5">
+                                                <input type="hidden" name="codigo" value="'.$paquete->getCodigo().'">
+                                                <input type="submit" name="borrar" value="Borrar" class="buttonLogin buttonLoginBor">
+                                            </th>
+                                        </form>';
                             echo   '</tr>';
                                     }
                                     ?>

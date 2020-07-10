@@ -7,13 +7,43 @@
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-
+    define("PAQUETEEXISTE","Error al intentar borrar el paquete, intente nuevamente mas tarde");
+    $error="";
     if (isset($_SESSION["encargado"])){
 
-    }
-    else header("Location: ../bienvenida.php");
+        if(isset($_POST["borrar"])){
+            $paquete=Logica::pedirPaquete($_POST["codigo"]);
+ 
+        }
+        else {
+            if(isset($_POST["borrarPaquete"])){
+                $paquete=Logica::pedirPaquete($_POST["codigo"]);
+                $resultado=Logica::eliminarPaquete($_POST["codigo"]);
+                if($resultado==0){
+                    header("Location: paquetes.php");
+                    exit;
+                }
+                else{
+                    if($resultado==-2){
+                        $error=PAQUETEEXISTE;
+                    }
+                    else{
+                        ;//header a pagina de error
+                    }
+                }
     
-
+            }
+            else {
+                header("Location: paquetes.php");
+                exit; 
+            }
+            
+        }
+    }
+    else {
+        header("Location: ../bienvenida.php");
+        exit;
+    }
 ?>
 
 <html>
@@ -56,43 +86,54 @@
         <div id="main">
             <h2><a style="color:white;">Borrar Paquete</a></h2>
 		    <div id="banner">
-                <div class="limiter">
-                    <div class="container-table100">
-                        <div class="wrap-table100">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">Codigo del Paquete</th>
-                                            <th class="column5">Direccion Remitente</th> 
-                                            <th class="column5">Direccion Destino</th> 
-                                            <th class="column4">Fragil</th>
-                                            <th class="column5">Perecedero</th>       
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="column1">231544563</td>
-                                            <td class="column6">Tallugar 1256</td>
-                                            <td class="column6">Tallugar 1256</td>
-                                            <td class="column4">Si</td>
-                                            <td class="column5">No</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>  
+                <form method="post" action="borrarPaquete.php">
+                    <div class="limiter">
+                        <div class="container-table100">
+                            <div class="wrap-table100">
+                                <div class="table100">
+                                    <table>
+                                        <thead>
+                                            <tr class="table100-head">
+                                                <th class="column1">Codigo del Paquete</th>
+                                                <th class="column5">Direccion Remitente</th> 
+                                                <th class="column5">Direccion Destino</th> 
+                                                <th class="column4">Fragil</th>
+                                                <th class="column5">Perecedero</th>       
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <?php 
+                                                function auxFunction($boolean){
+                                                    if($boolean) return "Si";
+                                                    else return "No"; 
+                                                }
+                                                echo'
+                                                <td class="column1">'.$paquete->getCodigo().'</td>
+                                                <td class="column6">'.$paquete->getRemitente().'</td>
+                                                <td class="column6">'.$paquete->getDestinatario().'</td>
+                                                <td class="column4">'.auxFunction($paquete->getFragil()).'</td>
+                                                <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>';
+                                                ?>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </div>
                         </div>
+                        <h2><a style="color: white;">Estas seguro de que quieres borrar este Paquete?</a></h2>
                     </div>
-                    <h2><a style="color: white;">Estas seguro de que quieres borrar este Paquete?</a></h2>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                <a href="paquetes.php" class="buttonLogin buttonLogin1">
-                    No
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                <a href="4_ABMpaquetes(Encargado).html" class="buttonLogin buttonLogin1">
-                    Si
-                </a>   
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                    <a href="paquetes.php" class="buttonLogin buttonLogin1" style="width:186px;">
+                        No
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <input type="hidden" name="codigo" value="<?php echo $paquete->getCodigo()?>">
+                    <input type="submit" name="borrarPaquete" value="Borrar" class="buttonLogin buttonLogin1" style="width:250px;">
+                    <br><br>
+                    <?php echo $error;?>  
+                </from> 
             </div>
         </div>
     </div>

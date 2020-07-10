@@ -58,7 +58,7 @@
                             </span>
                             <form method="post" action="e_login.php">
                                 <div class="wrap-input100 validate-input">
-                                    <input class="input100" type="text" name="ci" placeholder="C.I." required>
+                                    <input class="input100" type="text" name="ci" placeholder="C.I." maxlength="11" required>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-envelope" aria-hidden="true"></i>

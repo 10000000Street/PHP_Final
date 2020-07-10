@@ -6,9 +6,10 @@
     function paqueteNuevo($codigo,$remitente,$detinatario,$fragil,$perecedero){
         return new Paquete($codigo,$remitente,$detinatario,$fragil,$perecedero,null,null,null,-1,null);
     }
-    $paquete = paqueteNuevo(null,"remitente","destinatario",true,false);
+    $paquete = paqueteNuevo(4521741,"remitente","destinatario",true,false);
+    $paquete2=clone $paquete;
 
-    echo Persistencia::modificarPaquete('RT907538385HK',$paquete);
+    var_dump($paquete,$paquete2);
 
 
 

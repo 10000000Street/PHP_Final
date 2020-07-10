@@ -59,7 +59,7 @@
                             </span>
                             <form method="post" action="t_login.php">
                                 <div class="wrap-input100 validate-input">
-                                    <input class="input100" type="text" name="ci" placeholder="C.I." required>
+                                    <input class="input100" type="text" name="ci" placeholder="C.I." maxlength="11" required>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -80,9 +80,7 @@
 
                                 <!--Para hacer div invisible(css): display: none;-->
                                 <br>
-                                <div class="text-center p-t-12" align="center" 
-                                <?php if(!($acceso==false && isset($_POST["enviar"])) ) echo 'style="display: none"';?>
-                                > 
+                                <div class="text-center p-t-12" align="center" <?php if(!($acceso==false && isset($_POST["enviar"])) ) echo 'style="display: none"';?>> 
                                     <div style="color: rgb(204, 34, 34);margin: 10px;width: 250px;padding: 5px; border: 2px solid rgb(161, 34, 34);">
                                     CI/Pin invalidos, intente nuevamente
                                     </div>

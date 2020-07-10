@@ -152,7 +152,7 @@
             }
 
         }
-
+        
         static function pedirPaquete($codigo){
             
             try{
@@ -189,7 +189,6 @@
                 mysqli_close($conexion);
             }
         }
-
         static function pedirPaquetes($estado){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
@@ -271,48 +270,7 @@
                 mysqli_close($conexion);
             }
 
-        }
-        static function asignarPaquete($transportista,$paquete,$fechaEstimada){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    $sentencia=mysqli_prepare($conexion,"call ".self::$db.".asignarPaquete(?,?,?,@resultado)");
-                    mysqli_stmt_bind_param($sentencia,"iss",$transportista->getCedula(),$paquete->getCodigo(),$fechaEstimada);
-
-                    $sentencia->execute();
-                    $resultado= mysqli_query($conexion,"select @resultado");
-
-                    return mysqli_fetch_row($resultado)[0];       
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
-        static function finalizarEntrega($transportista){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    $sentencia=mysqli_prepare($conexion,"call ".self::$db.".finalizarEnvio(?,@resultado)");
-                    mysqli_stmt_bind_param($sentencia,"i",$transportista->getCedula());
-                    $sentencia->execute();
-                    $resultado= mysqli_query($conexion,"select @resultado");
-
-                    return mysqli_fetch_row($resultado)[0];       
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }  
+        } 
         static function pedirPaquetesEntregados($transportista){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
@@ -368,6 +326,7 @@
                 mysqli_close($conexion);
             }
         }
+        //transportistas
         static function agregarTransportista($transportista){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
@@ -471,6 +430,7 @@
                 mysqli_close($conexion);
             }
         }
+        //paquetes
         static function agregarPaquete($paquete){
             try{
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
@@ -534,6 +494,47 @@
                     $resultado=mysqli_query($conexion,"select @resultado");
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+                }
+                else return null;
+            }
+            catch(Exception $e){
+                echo $e;
+            }
+            finally {
+                mysqli_close($conexion);
+            }
+        }
+        static function asignarPaquete($transportista,$paquete,$fechaEstimada){
+            try{
+                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
+                if($conexion){
+                    $sentencia=mysqli_prepare($conexion,"call ".self::$db.".asignarPaquete(?,?,?,@resultado)");
+                    mysqli_stmt_bind_param($sentencia,"iss",$transportista->getCedula(),$paquete->getCodigo(),$fechaEstimada);
+
+                    $sentencia->execute();
+                    $resultado= mysqli_query($conexion,"select @resultado");
+
+                    return mysqli_fetch_row($resultado)[0];       
+                }
+                else return null;
+            }
+            catch(Exception $e){
+                echo $e;
+            }
+            finally {
+                mysqli_close($conexion);
+            }
+        }
+        static function finalizarEntrega($transportista){
+            try{
+                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
+                if($conexion){
+                    $sentencia=mysqli_prepare($conexion,"call ".self::$db.".finalizarEnvio(?,@resultado)");
+                    mysqli_stmt_bind_param($sentencia,"i",$transportista->getCedula());
+                    $sentencia->execute();
+                    $resultado= mysqli_query($conexion,"select @resultado");
+
+                    return mysqli_fetch_row($resultado)[0];       
                 }
                 else return null;
             }
