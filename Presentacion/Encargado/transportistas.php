@@ -9,7 +9,7 @@
     }
 
     if (isset($_SESSION["encargado"])){
-
+        $transportistas=Logica::pedirTransportistas();
     }
     else header("Location: ../bienvenida.php");
     
@@ -73,15 +73,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="column1">2.003.985-5</td>
-                                            <td class="column6">Daniel Man</td>
-                                            <td class="column4">Monte Caseros 1548</td>
-                                            <td class="column5">095 345 827</td>
-                                            <th class="column5">Foto</th>
-                                            <th class="column5"><a href="modificarTransportista.php" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                            <th class="column5"><a href="eliminarTransportista.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
-                                        </tr>
+                                        <?php 
+                                            foreach($transportistas as $transportista){
+                                                echo '
+                                            <tr>
+                                                <td class="column1">'.$transportista->getCedula().'</td>
+                                                <td class="column6">'.$transportista->getNombres()." ".$transportista->getApellidos().'</td>
+                                                <td class="column4">'.$transportista->getDireccion().'</td>
+                                                <td class="column5">'.$transportista->getTelefono().'</td>
+                                                <th class="column5"><img src="http://localhost/PhpUDE/Php_Final/Persistencia/imagenes/'.$transportista->getCedula().'.jpg" height="60"></th>
+                                                <th class="column5"><a href="modificarTransportista.php" class="buttonLogin buttonLogin2">Modificar</a></th>
+                                                <th class="column5"><a href="eliminarTransportista.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
+                                            </tr>';        
+                                                }
+                                        ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>

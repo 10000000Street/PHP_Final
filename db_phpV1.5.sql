@@ -45,26 +45,26 @@ create table Paquete (
 /* INSERT Personas */
 
 INSERT INTO Persona VALUES
-(73643802,'Tomas','Merino','N/A','91f071452abaa5c84707643da58352c4',false),
-(87963526,'Antoni','Encinas','N/A','e536f72e36f9164150947a1a06ee3dcf',false),
-(44956533,'Clemente','Chen','N/A','b776ef5ff96773dc22822c6fe4702b13',false),
-(07242161,'Jesus Miguel','Castellano','N/A','9409d561228e6469d79b923f08bbbc08',false),
+(73643802,'Tomas','Merino','73643802.jpg','91f071452abaa5c84707643da58352c4',false),
+(87963526,'Antoni','Encinas','87963526.jpg','e536f72e36f9164150947a1a06ee3dcf',false),
+(44956533,'Clemente','Chen','44956533.jpg','b776ef5ff96773dc22822c6fe4702b13',false),
+(07242161,'Jesus Miguel','Castellano','7242161.jpg','9409d561228e6469d79b923f08bbbc08',false),
 
-(79041860,'Isidro','Velez','N/A','b0477b804684ad106a9d97bb8a2fd143',false),
-(28853514,'Carlos Enrique','Oliveira','N/A','df3efb838fa90ec0a2f9e98eea4df89f',false),
-(63737420,'Mauricio','Fuentes','N/A','2a31da6a505d1b300685a8203ad01d12',false),
-(92416532,'Simon','Roldan','N/A','5231ee3a4914171201f7e5484cc2f23a',false);
+(79041860,'Isidro','Velez','79041860.jpg','b0477b804684ad106a9d97bb8a2fd143',false),
+(28853514,'Carlos Enrique','Oliveira','28853514.jpg','df3efb838fa90ec0a2f9e98eea4df89f',false),
+(63737420,'Mauricio','Fuentes','63737420.jp','2a31da6a505d1b300685a8203ad01d12',false),
+(92416532,'Simon','Roldan','92416532.jpg','5231ee3a4914171201f7e5484cc2f23a',false);
 /*
 INSERT INTO Persona VALUES
-(73643802,'Tomas','Merino','N/A','qGx4Yn'),
-(87963526,'Antoni','Encinas','N/A','B3J4Eg'),
-(44956533,'Clemente','Chen','N/A','RmYCMw'),
-(07242161,'Jesus Miguel','Castellano','N/A','HQ6WCE'),
+(73643802,'Tomas','Merino','73643802.jpg','qGx4Yn'),
+(87963526,'Antoni','Encinas','87963526.jpg','B3J4Eg'),
+(44956533,'Clemente','Chen','44956533.jpg','RmYCMw'),
+(07242161,'Jesus Miguel','Castellano','7242161.jpg','HQ6WCE'),
 
-(79041860,'Isidro','Velez','N/A','BYnVpE'),
-(28853514,'Carlos Enrique','Oliveira','N/A','A8PFWq'),
-(63737420,'Mauricio','Fuentes','N/A','qn6FQ9'),
-(92416532,'Simon','Roldan','N/A','XTczHH'); */
+(79041860,'Isidro','Velez','79041860.jpg','BYnVpE'),
+(28853514,'Carlos Enrique','Oliveira','28853514.jpg','A8PFWq'),
+(63737420,'Mauricio','Fuentes','63737420.jpg','qn6FQ9'),
+(92416532,'Simon','Roldan','92416532.jpg','XTczHH'); */
 
 INSERT INTO Encargado VALUES
 (73643802,'fenomen4k@gmail.com'),
