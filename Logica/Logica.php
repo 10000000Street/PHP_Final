@@ -65,7 +65,7 @@
         public static function pedirPaquetesEntregados($transportista){
             return Persistencia::pedirPaquetesEntregados($transportista);
         }
-        static function pedirTransportistas(){
+        public static function pedirTransportistas(){
             return Persistencia::pedirTransportistas();
         }
         public static function buscarTransportista($ci){
@@ -88,6 +88,38 @@
             if($paqueteOriginal->getPerecedero()===$paquete->getPerecedero()) $paqueteMod->setPerecedero(null);
     
             return Persistencia::modificarPaquete($codigo, $paqueteMod);
+        }
+        // transportistas
+        public static function agregarTransportista($tranportista){
+            return Persistencia::agregarTransportista($tranportista);
+        }
+        public static function modificarTransportista($cedula,$tranportista){
+            $transportistaDB=Persistencia::buscarTransportista($cedula);
+            
+            if($tranportista->getCedula()===$cedula || empty($tranportista->getCedula()))                            
+                $tranportista->setCedula(null);
+            if($tranportista->getNombres()===$transportistaDB->getNombres() || empty($tranportista->getNombres()))    
+                $tranportista->setNombres(null);
+            if($tranportista->getApellidos()===$transportistaDB->getApellidos() || empty($tranportista->getApellidos()))
+                $tranportista->setApellidos(null);
+
+            if(empty($tranportista->getFoto()["tmp_name"]))                     
+                $tranportista->setFoto(null);
+
+            if(empty($tranportista->getPin()))                                  
+                $tranportista->setPin(null);
+            if($transportistaDB->getDireccion()===$tranportista->getDireccion() || empty($tranportista->getDireccion()))
+                $tranportista->setDireccion(null);
+            if($tranportista->getTelefono()===$transportistaDB->getTelefono() || empty($tranportista->getTelefono()))  
+                $tranportista->setTelefono(null);
+
+            return Persistencia::modificarTransportista($cedula,$tranportista);
+        }
+        public static function desactivarTransportista($cedula){
+            return Persistencia::desactivarTransportista($cedula);
+        }
+        public static function reactivarTransportista($cedula){
+            return Persistencia::reactivarTransportista($cedula);
         }
 
     }

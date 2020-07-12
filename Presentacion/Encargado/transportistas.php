@@ -69,7 +69,7 @@
                                             <th class="column5">Telefono</th>
                                             <th class="column5">Foto</th>
                                             <th class="column5">Modificar</th>
-                                            <th class="column5"><a href="agregarTransportista.php" class="buttonLogin buttonLoginAgr">Agregar</a></th>
+                                            <th class="column5" colspan="2"><a href="agregarTransportista.php" class="buttonLogin buttonLoginAgr">Agregar</a></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,11 +81,30 @@
                                                 <td class="column6">'.$transportista->getNombres()." ".$transportista->getApellidos().'</td>
                                                 <td class="column4">'.$transportista->getDireccion().'</td>
                                                 <td class="column5">'.$transportista->getTelefono().'</td>
-                                                <th class="column5"><img src="http://localhost/PhpUDE/Php_Final/Persistencia/imagenes/'.$transportista->getCedula().'.jpg" height="60"></th>
-                                                <th class="column5"><a href="modificarTransportista.php" class="buttonLogin buttonLogin2">Modificar</a></th>
-                                                <th class="column5"><a href="eliminarTransportista.php" class="buttonLogin buttonLoginBor">Borrar</a></th>
-                                            </tr>';        
-                                                }
+                                                <th class="column5"><img src="/PhpUDE/Php_Final/Persistencia/imagenes/'.$transportista->getFoto().'" height="60"></th>
+                                                <th class="column5">
+                                                    <form method="post" action="modificarTransportista.php" >
+                                                        <input type="hidden" name="cedula" value="'.$transportista->getCedula().'">
+                                                        <input type="submit" name="modificar" value="Modificar" class="buttonLogin buttonLogin2">
+                                                    </form>
+                                                </th>';
+                                            if(!$transportista->getDesactivada()) {
+                                                echo '
+                                                <th class="column5">
+                                                    <form method="post" action="eliminarTransportista.php" >
+                                                        <input type="hidden" name="cedula" value="'.$transportista->getCedula().'">
+                                                        <input type="submit" name="desactivar" value="Desactivar" class="buttonLogin buttonLogin2">
+                                                    </form>
+                                                </th>';}
+                                            else {echo '
+                                                <th class="column5">
+                                                    <form method="post" action="eliminarTransportista.php" >
+                                                        <input type="hidden" name="cedula" value="'.$transportista->getCedula().'">
+                                                        <input type="submit" name="activar" value="Activar" class="buttonLogin buttonLogin2">
+                                                    </form>
+                                                </th>
+                                            </tr>';  }      
+                                            }
                                         ?>
                                         
                                     </tbody>

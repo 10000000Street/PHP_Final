@@ -45,26 +45,26 @@ create table Paquete (
 /* INSERT Personas */
 
 INSERT INTO Persona VALUES
-(73643802,'Tomas','Merino','73643802.jpg','91f071452abaa5c84707643da58352c4',false),
-(87963526,'Antoni','Encinas','87963526.jpg','e536f72e36f9164150947a1a06ee3dcf',false),
-(44956533,'Clemente','Chen','44956533.jpg','b776ef5ff96773dc22822c6fe4702b13',false),
-(07242161,'Jesus Miguel','Castellano','7242161.jpg','9409d561228e6469d79b923f08bbbc08',false),
+(73643802,'Tomas','Merino','73643802n0.jpg','91f071452abaa5c84707643da58352c4',false),
+(87963526,'Antoni','Encinas','87963526n0.jpg','e536f72e36f9164150947a1a06ee3dcf',false),
+(44956533,'Clemente','Chen','44956533n0.jpg','b776ef5ff96773dc22822c6fe4702b13',false),
+(07242161,'Jesus Miguel','Castellano','7242161n0.jpg','9409d561228e6469d79b923f08bbbc08',false),
 
-(79041860,'Isidro','Velez','79041860.jpg','b0477b804684ad106a9d97bb8a2fd143',false),
-(28853514,'Carlos Enrique','Oliveira','28853514.jpg','df3efb838fa90ec0a2f9e98eea4df89f',false),
-(63737420,'Mauricio','Fuentes','63737420.jp','2a31da6a505d1b300685a8203ad01d12',false),
-(92416532,'Simon','Roldan','92416532.jpg','5231ee3a4914171201f7e5484cc2f23a',false);
+(79041860,'Isidro','Velez','79041860n0.jpg','b0477b804684ad106a9d97bb8a2fd143',false),
+(28853514,'Carlos Enrique','Oliveira','28853514n0.jpg','df3efb838fa90ec0a2f9e98eea4df89f',false),
+(63737420,'Mauricio','Fuentes','63737420n0.jpg','2a31da6a505d1b300685a8203ad01d12',false),
+(92416532,'Simon','Roldan','92416532n0.jpg','5231ee3a4914171201f7e5484cc2f23a',false);
 /*
 INSERT INTO Persona VALUES
-(73643802,'Tomas','Merino','73643802.jpg','qGx4Yn'),
-(87963526,'Antoni','Encinas','87963526.jpg','B3J4Eg'),
-(44956533,'Clemente','Chen','44956533.jpg','RmYCMw'),
-(07242161,'Jesus Miguel','Castellano','7242161.jpg','HQ6WCE'),
+(73643802,'Tomas','Merino','73643802n0.jpg','qGx4Yn'),
+(87963526,'Antoni','Encinas','87963526n0.jpg','B3J4Eg'),
+(44956533,'Clemente','Chen','44956533n0.jpg','RmYCMw'),
+(07242161,'Jesus Miguel','Castellano','7242161n0.jpg','HQ6WCE'),
 
-(79041860,'Isidro','Velez','79041860.jpg','BYnVpE'),
-(28853514,'Carlos Enrique','Oliveira','28853514.jpg','A8PFWq'),
-(63737420,'Mauricio','Fuentes','63737420.jpg','qn6FQ9'),
-(92416532,'Simon','Roldan','92416532.jpg','XTczHH'); */
+(79041860,'Isidro','Velez','79041860n0.jpg','BYnVpE'),
+(28853514,'Carlos Enrique','Oliveira','28853514n0.jpg','A8PFWq'),
+(63737420,'Mauricio','Fuentes','63737420n0.jpg','qn6FQ9'),
+(92416532,'Simon','Roldan','92416532n0.jpg','XTczHH'); */
 
 INSERT INTO Encargado VALUES
 (73643802,'fenomen4k@gmail.com'),
@@ -172,7 +172,7 @@ create procedure agregarTransportista(p_ci int,p_nombres varchar(50), p_apellido
 	end$$;
     
 Delimiter $$;
-create procedure modificarTransportista(p_ci int,p_new_ci int,p_nombres varchar(50), p_apellidos varchar(50), p_foto varchar(255),p_pin char(32),p_direccion varchar(50),p_telefono int,out p_error int)
+create procedure modificarTransportista(p_ci int,p_new_ci int,p_nombres varchar(50), p_apellidos varchar(50), p_foto varchar(255) ,p_pin char(32),p_direccion varchar(50),p_telefono int,out p_error int)
 begin
 		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
 				BEGIN
@@ -185,8 +185,9 @@ begin
 					start transaction;
 						if(p_nombres is not null) then update Persona set nombres=p_nombres where ci=p_ci; 				end if;
 						if(p_apellidos is not null) then update Persona set apellidos=p_apellidos where ci=p_ci;				end if;
-						if(p_foto is not null) then update Persona set foto=p_foto where ci=p_ci;									end if;
 						if(p_pin is not null) then update Persona set pin=p_pin where ci=p_ci;										end if;
+                        
+                        if(p_foto is not null) then update Persona set foto=p_foto where ci=p_ci;									end if;
 						
 						if(p_direccion is not null) then update Transportista set direccion=p_direccion where ci=p_ci;		end if;
 						if(p_telefono is not null) then update Transportista set telefono=p_telefono where ci=p_ci;			end if;
@@ -209,12 +210,18 @@ create procedure desactivarTransportista(p_ci int, out p_error int)
 	begin
 		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
 			BEGIN
+				set p_error=-1;
 				ROLLBACK;
 			END;
 		if(select count(*) from Transportista t, Persona p where p.ci=t.ci and t.ci=p_ci AND p.desactivada=false)=1 then 
 			begin
+				declare codigoPaquete varchar(13); 
+                set codigoPaquete =(select p.codigo from Paquete p left outer join Asignaciones a on (a.codigo=p.codigo) where p.estado=0 and a.ci=p_ci);
+                
 				start transaction;
-				update Persona set desactivada=true where ci=p_ci;
+					update Persona set desactivada=true where ci=p_ci;
+					delete from Asignaciones where codigo=codigoPaquete;
+					update Paquete set estado=-1 where codigo=codigoPaquete;
                 commit;
                 set p_error=0;
 			end;

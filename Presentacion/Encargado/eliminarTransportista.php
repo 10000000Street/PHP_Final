@@ -7,9 +7,41 @@
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
+    $ac_de="Desactivar ";  
+    $ac_de_tr="desactivarTransportista";
 
     if (isset($_SESSION["encargado"])){
+        $transportista=Logica::buscarTransportista($_POST["cedula"]);
+        if (isset($_POST["desactivar"]) || isset($_POST["activar"])){ 
+           
+            if (isset($_POST["activar"])){
+                $ac_de="Activar "; 
+                $ac_de_tr="activarTransportista";
+            }
+            if (isset($_POST["desactivar"])){
 
+            }
+        }
+        else {
+            if (isset($_POST["activarTransportista"])){
+                $ac_de="Activar "; 
+                $ac_de_tr="activarTransportista";
+                Logica::reactivarTransportista($_POST["cedula"]);
+                header("Location: transportistas.php");
+                exit;
+            }
+            else {
+                if (isset($_POST["desactivarTransportista"])){
+                    Logica::desactivarTransportista($_POST["cedula"]);
+                    header("Location: transportistas.php");
+                    exit;
+                }
+                else{
+                    header("Location: transportistas.php");
+                    exit;
+                }
+            }
+        }
     }
     else header("Location: ../bienvenida.php");
     
@@ -54,49 +86,48 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Borrar Transportista</a></h2>
+            <h2><a style="color:white;"><?php echo $ac_de;?> Transportista</a></h2>
 		    <div id="banner">
-                <div class="limiter">
-                    <div class="container-table100">
-                        <div class="wrap-table100">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">Nombre</th>
-                                            <th class="column5">Apellido</th> 
-                                            <th class="column4">C.I.</th>
-                                            <th class="column5">Direccion</th>
-                                            <th class="column5">Telefono</th>
-                                            <th class="column5">Foto</th>
-                                            <th class="column5">Pin</th>       
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="column1">Juan</td>
-                                            <td class="column1">Carlos</td>
-                                            <td class="column1">31243223</td>
-                                            <td class="column1">Andasa Berdonde 2762</td>
-                                            <td class="column1">234534256</td>
-                                            <td class="column1">Foto</td>
-                                            <td class="column1">1234</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>  
+                <form method="post" action="eliminarTransportista.php">
+                    <div class="limiter">
+                        <div class="container-table100">
+                            <div class="wrap-table100">
+                                <div class="table100">
+                                    <table>
+                                        <thead>
+                                            <tr class="table100-head">
+                                                <th class="column1">Nombre</th>
+                                                <th class="column5">Apellido</th> 
+                                                <th class="column4">C.I.</th>
+                                                <th class="column5">Direccion</th>
+                                                <th class="column5">Telefono</th>
+                                                <th class="column5">Foto</th>  
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="column1"><?php echo $transportista->getNombres();?></td>
+                                                <td class="column1"><?php echo $transportista->getApellidos();?></td>
+                                                <td class="column1"><?php echo $transportista->getCedula();?></td>
+                                                <td class="column1"><?php echo $transportista->getDireccion();?></td>
+                                                <td class="column1"><?php echo $transportista->getTelefono();?></td>
+                                                <td class="column1"><img src="/PhpUDE/Php_Final/Persistencia/imagenes/<?php echo $transportista->getFoto();?>" height="60"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </div>
                         </div>
+                        <h2><a style="color: white;">Estas seguro de que quieres <?php echo strtolower($ac_de);?> a este Transportista?</a></h2>
                     </div>
-                    <h2><a style="color: white;">Estas seguro de que quieres borrar a este Transportista?</a></h2>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="transportistas.php" class="buttonLogin buttonLogin1">
-                    No
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                <a href="" class="buttonLogin buttonLogin1">
-                    Si
-                </a>   
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="transportistas.php" class="buttonLogin buttonLogin1" style="width:186px;">
+                        No
+                    </a>
+                    <input type="hidden" name="cedula" value="<?php echo $_POST["cedula"];?>">
+                    <input type="submit" name="<?php echo $ac_de_tr;?>" value="Si" class="buttonLogin buttonLogin1" style="width:250px;"> 
+                </form> 
             </div>
         </div>
     </div>

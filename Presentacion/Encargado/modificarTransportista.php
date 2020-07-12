@@ -9,9 +9,38 @@
     }
 
     if (isset($_SESSION["encargado"])){
+        if(isset($_POST["modificar"])){
+            $transportista=Logica::buscarTransportista($_POST["cedula"]);
+            
+        }
+        else {
+            if(isset($_POST["modificarTransportista"])){
+                $transportista=Logica::buscarTransportista($_POST["cedula"]);
 
+                $transportistaCambios=new Transportista(
+                    $_POST["cedula"],
+                    $_POST["nombres"],
+                    $_POST["apellidos"],
+                    $_FILES["foto"],
+                    $_POST["pin"],
+                    null,
+                    $_POST["direccion"],
+                    $_POST["telefono"]
+                );
+                $resultado=Logica::modificarTransportista($_POST["cedula"],$transportistaCambios);
+
+                $transportista=Logica::buscarTransportista($_POST["cedula"]);
+            }
+            else{
+                header("Location: ../transportistas.php");
+                exit;
+            } 
+        }
     }
-    else header("Location: ../bienvenida.php");
+    else {
+        header("Location: ../bienvenida.php");
+        exit;
+    }
     
 
 ?>
@@ -56,55 +85,56 @@
         <div id="main">
             <h2><a style="color:white;">Modificar Transportista</a></h2>
 		    <div id="banner">
-                <div class="limiter">
-                    <div class="container-table100">
-                        <div class="wrap-table100" style="margin-right: 55px;">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">Nombre</th>
-                                            <th class="column5">Apellido</th> 
-                                            <th class="column4">C.I.</th>
-                                            <th class="column5">Direccion</th>
-                                            <th class="column5">Telefono</th>
-                                            <th class="column5">Foto</th>
-                                            <th class="column5">Pin</th>       
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="column1">Juan</td>
-                                            <td class="column1">Carlos</td>
-                                            <td class="column1">31243223</td>
-                                            <td class="column1">Andasa Berdonde 2762</td>
-                                            <td class="column1">234534256</td>
-                                            <td class="column1">Foto</td>
-                                            <td class="column1">1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1"><input style="height: 35px; width: 6em; font-size: 20px;" type="text"></td>
-                                            <td class="column6"><input style="height: 35px; width: 6em; font-size: 20px;" type="text"></td>
-                                            <td class="column4"><input style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
-                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 20px;" type="text"></td>
-                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
-                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 15px;" type="file"></td>
-                                            <td class="column5"><input style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>  
+                <form method="post" action="modificarTransportista.php" enctype="multipart/form-data">
+                    <div class="limiter">
+                        <div class="container-table100">
+                            <div class="wrap-table100" style="margin-right: 55px;">
+                                <div class="table100">
+                                    <table>
+                                        <thead>
+                                            <tr class="table100-head">
+                                                <th class="column1">Nombre</th>
+                                                <th class="column5">Apellido</th> 
+                                                <th class="column4">C.I.</th>
+                                                <th class="column5">Direccion</th>
+                                                <th class="column5">Telefono</th>
+                                                <th class="column5">Foto</th>
+                                                <th class="column5">Pin</th>       
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="column1"><?php echo $transportista->getNombres();?></td>
+                                                <td class="column1"><?php echo $transportista->getApellidos();?></td>
+                                                <td class="column1"><?php echo $transportista->getCedula();?></td>
+                                                <td class="column1"><?php echo $transportista->getDireccion();?></td>
+                                                <td class="column1"><?php echo $transportista->getTelefono();?></td>
+                                                <td class="column1"><img src="/PhpUDE/Php_Final/Persistencia/imagenes/<?php echo $transportista->getFoto();?>" height="60"></td>
+                                                <td class="column1">******</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="column1"><input name="nombres" style="height: 35px; width: 6em; font-size: 20px;" type="text" maxlength="50"></td>
+                                                <td class="column6"><input name="apellidos" style="height: 35px; width: 6em; font-size: 20px;" type="text" maxlength="50"></td>
+                                                <td class="column4"><input name="cedula" style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
+                                                <td class="column5"><input name="direccion" style="height: 35px; width: 6em; font-size: 20px;" type="text" maxlength="50"></td>
+                                                <td class="column5"><input name="telefono" style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
+                                                <td class="column5"><input name="foto" style="height: 35px; width: 6em; font-size: 15px;" type="file"></td>
+                                                <td class="column5"><input name="pin" style="height: 35px; width: 6em; font-size: 20px;" type="text" maxlength="6" minlength="6"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </div>
                         </div>
                     </div>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                <a href="transportistas.php" class="buttonLogin buttonLogin1">
-                    Cancelar
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                <a href="" class="buttonLogin buttonLogin1">
-                    Modificar
-                </a>   
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                    <a href="transportistas.php" class="buttonLogin buttonLogin1"  style="width:186px;">
+                        Cancelar
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <input type="hidden" name="cedula" value="<?php echo $_POST["cedula"];?>">
+                    <input type="submit" name="modificarTransportista" value="Modificar" class="buttonLogin buttonLogin1" style="width:250px;">
+                </form>   
             </div>
         </div>
     </div>

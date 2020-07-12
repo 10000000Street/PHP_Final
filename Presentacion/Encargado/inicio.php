@@ -57,36 +57,40 @@
             <h2><a style="color:white;">Paquetes Activos</a></h2>
 		    <div id="banner">
                 <div class="limiter">
-                    <div class="container-table100">
-                        <div class="wrap-table100">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">Codigo del Paquete</th>
-                                            <th class="column3">Nombre Transportista</th>
-                                            <th class="column4">C.I. Transportista</th>
-                                            <th class="column5">Fecha y Hora de Asignacion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php   
-                                        foreach ($paquetesActivos as $paquete){
-                                            $transportista=Logica::buscarTransportista($paquete->getCi());
-                                            echo '
-                                        <tr>
-                                            <td class="column1">'.$paquete->getCodigo().'</td>
-                                            <td class="column2">'.$transportista->getNombres().' '.$transportista->getApellidos().'</td>
-                                            <td class="column3">'.$paquete->getCi().'</td>
-                                            <td class="column4">'.$paquete->getFechaHoraDeAsignacion().'</td>
-                                        </tr>';
-                                        }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    <?php 
+                    if($paquetesActivos!==null){
+                        echo '
+                            <div class="container-table100">
+                                <div class="wrap-table100">
+                                    <div class="table100">
+                                        <table>
+                                            <thead>
+                                                <tr class="table100-head">
+                                                    <th class="column1">Codigo del Paquete</th>
+                                                    <th class="column3">Nombre Transportista</th>
+                                                    <th class="column4">C.I. Transportista</th>
+                                                    <th class="column5">Fecha y Hora de Asignacion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>'; 
+                                                foreach ($paquetesActivos as $paquete){
+                                                    $transportista=Logica::buscarTransportista($paquete->getCi());
+                                                    echo '
+                                                <tr>
+                                                    <td class="column1">'.$paquete->getCodigo().'</td>
+                                                    <td class="column2">'.$transportista->getNombres().' '.$transportista->getApellidos().'</td>
+                                                    <td class="column3">'.$paquete->getCi().'</td>
+                                                    <td class="column4">'.$paquete->getFechaHoraDeAsignacion().'</td>
+                                                </tr>';
+                                                }
+                                            echo '</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>';
+                    }
+                    else echo "<br> No hay paquetes activos en este momento.";
+                    ?>
                 </div>  
             </div>
         </div>

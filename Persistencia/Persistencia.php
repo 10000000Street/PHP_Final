@@ -333,11 +333,13 @@
                 if($conexion){
                     $query="call ".self::$db.".agregarTransportista(?,?,?,?,?,?,?,@resultado)";
                     $sentencia=mysqli_prepare($conexion,$query);
+                    $foto=$transportista->getFoto();
+                    $nombreFoto=$transportista->getCedula()."n0.jpg";
                     mysqli_stmt_bind_param($sentencia,"isssssi",
                         $transportista->getCedula(),
                         $transportista->getNombres(),
                         $transportista->getApellidos(),
-                        $transportista->getFoto(),
+                        $nombreFoto,
                         md5($transportista->getPin()),
                         $transportista->getDireccion(),
                         $transportista->getTelefono()
@@ -345,7 +347,20 @@
                     $sentencia->execute();
 
                     $resultado=mysqli_query($conexion,"select @resultado");
-                    return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+                    $error=mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+
+                    if($error==0 && $foto!==null) {
+                        try{
+                            move_uploaded_file(
+                                $foto["tmp_name"],
+                                "/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto
+                            );
+                        }
+                        catch(Exception $e){
+                            //borrar o deshacer el cambio en la base de datos
+                        }
+                    }
+                    return $error;
                 }
                 else return null;
             }
@@ -356,18 +371,27 @@
                 mysqli_close($conexion);
             }
         }
-        static function modificarTransportista($transportista,$nuevaCedula){
+        static function modificarTransportista($cedula,$transportista){
+            function siguienteFoto($foto){
+                if($foto!==null){
+                    $ci_num=explode("n",$foto);
+                    return $ci_num[0]."n".++$ci_num[1];
+                }
+                else return null;
+            }
             try{
+                
                 $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
                 if($conexion){
                     $query="call ".self::$db.".modificarTransportista(?,?,?,?,?,?,?,?,@resultado)";
                     $sentencia=mysqli_prepare($conexion,$query);
+                    $foto=$transportista->getFoto();
                     mysqli_stmt_bind_param($sentencia,"iisssssi",
+                        $cedula,
                         $transportista->getCedula(),
-                        $nuevaCedula,
                         $transportista->getNombres(),
                         $transportista->getApellidos(),
-                        $transportista->getFoto(),
+                        siguienteFoto($foto),
                         md5($transportista->getPin()),
                         $transportista->getDireccion(),
                         $transportista->getTelefono()
@@ -375,7 +399,21 @@
                     $sentencia->execute();
 
                     $resultado=mysqli_query($conexion,"select @resultado");
-                    return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+                    $error=mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+
+                    if($error==0 && $foto!==null) {
+                        try{
+                            move_uploaded_file(
+                                $foto["tmp_name"],
+                                "/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".siguienteFoto($foto).".jpg"
+                            );
+                        }
+                        catch(Exception $e){
+                            //borrar o deshacer el cambio en la base de datos
+                        }
+                    }
+                    
+                    return $error;
                 }
                 else return null;
             }
@@ -396,7 +434,7 @@
                     $sentencia->execute();
                     
                     $resultado=mysqli_query($conexion,"select @resultado");
-
+                    
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
                 else return null;

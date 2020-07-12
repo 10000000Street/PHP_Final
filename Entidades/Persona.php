@@ -15,6 +15,7 @@
             $this->apellidos=$apellidos;
             $this->pin=$pin;
             $this->foto=$foto;
+            $this->desactivada=$desactivada;
         }
 
         public function getCedula(){ 
