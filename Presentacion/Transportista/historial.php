@@ -54,7 +54,7 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Informacion Del Paquete Asignado</a></h2>
+            <h2><a style="color:white;">Historial de envios</a></h2>
             <?php if($paquetes!=null) echo '
 		    <div id="banner">
                 <div class="limiter">

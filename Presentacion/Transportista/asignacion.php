@@ -60,7 +60,7 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Asignate Un Paquete</a></h2>
+            <h2><a style="color:white;">Asignacion de Paquetes</a></h2>
             <?php 
             if($paquetes!=null){echo '
             <div id="banner">

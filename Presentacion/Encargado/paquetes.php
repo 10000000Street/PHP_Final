@@ -45,8 +45,8 @@
             <div id="menu">
                 <ul>
                     <li><a class="buttonA buttonA1" href="inicio.php" accesskey="1" title="">Inicio</a></li>
-                    <li><a class="buttonA buttonSeleccionado" href="paquetes.php" accesskey="2" title="">Listado-Alta-Baja-Modificacion de paquetes</a></li>
-                    <li><a class="buttonA buttonA1" href="transportistas.php" accesskey="3" title="">Listado-Alta-Baja-Modificacion de Transportista</a></li>
+                    <li><a class="buttonA buttonSeleccionado" href="paquetes.php" accesskey="2" title="">Administracion de Paquetes</a></li>
+                    <li><a class="buttonA buttonA1" href="transportistas.php" accesskey="3" title="">Administracion de Transportistas</a></li>
                     <li><a class="buttonA buttonA1" href="historial.php" accesskey="3" title="">Historial de envios</a></li>
                     <li><a class="buttonA buttonA1" href="?logout=1" accesskey="4" title="">Salir</a></li>
                 </ul>      
@@ -54,7 +54,7 @@
         </div>  
 
         <div id="main">
-            <h2><a style="color:white;">Listado-Alta-Baja-Modificacion de Paquetes</a></h2>
+            <h2><a style="color:white;">Administracion de Paquetes</a></h2>
 		    <div id="banner">
                 <div class="limiter">
                     <div class="container-table100">
@@ -89,7 +89,7 @@
                                         if($boolean) return "Si";
                                         else return "No"; 
                                     }
-                                    foreach ($paquetes as $paquete){
+                if($paquetes!==null)foreach ($paquetes as $paquete){
                                         echo'
                                     <tr>
                                         <td class="column1">'.$paquete->getCodigo().'</td>

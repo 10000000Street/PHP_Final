@@ -45,8 +45,8 @@
             <div id="menu">
                 <ul>
                     <li><a class="buttonA buttonSeleccionado" href="inicio.php" accesskey="1" title="">Inicio</a></li>
-                    <li><a class="buttonA buttonA1" href="paquetes.php" accesskey="2" title="">Listado-Alta-Baja-Modificacion de paquetes</a></li>
-                    <li><a class="buttonA buttonA1" href="transportistas.php" accesskey="3" title="">Listado-Alta-Baja-Modificacion de Transportista</a></li>
+                    <li><a class="buttonA buttonA1" href="paquetes.php" accesskey="2" title="">Administracion de Paquetes</a></li>
+                    <li><a class="buttonA buttonA1" href="transportistas.php" accesskey="3" title="">Administracion de Transportistas</a></li>
                     <li><a class="buttonA buttonA1" href="historial.php" accesskey="3" title="">Historial de envios</a></li>
                     <li><a class="buttonA buttonA1" href="?logout=1" accesskey="4" title="">Salir</a></li>
                 </ul>      
