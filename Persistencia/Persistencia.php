@@ -310,22 +310,6 @@
                 mysqli_close($conexion);
             }
         }
-        static function Molde(){
-            try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    
-                    
-                }
-                else return null;
-            }
-            catch(Exception $e){
-                echo $e;
-            }
-            finally {
-                mysqli_close($conexion);
-            }
-        }
         //transportistas
         static function agregarTransportista($transportista){
             try{

@@ -8,6 +8,7 @@
         header("Location: ../bienvenida.php");
     }
     $error="";
+    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["encargado"])){
         if (isset($_POST["agregarTransportista"])){
             $nuevoTransportista=new Transportista(

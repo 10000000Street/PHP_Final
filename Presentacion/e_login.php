@@ -1,14 +1,16 @@
-<?php 
+<?php  
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
+    if(!Logica::refreshTimeOut()) Logica::logOut();
+
     session_start();
+
     if (isset($_SESSION["encargado"])){
         header("Location: Encargado/inicio.php"); 
         exit;
     }
     $acceso=null;
     if(isset($_POST["enviar"])){
-        require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
-        $gestorLogica=new Logica();
-        $acceso=$gestorLogica->loginEncargado($_POST["ci"],$_POST["pin"]);
+        $acceso=Logica::loginEncargado($_POST["ci"],$_POST["pin"]);
         if($acceso) {
             header("Location: Encargado/inicio.php"); 
             exit;

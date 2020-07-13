@@ -8,7 +8,7 @@
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-
+    if(!Logica::refreshTimeOut()) Logica::logOut();
     if(isset($_POST["asignar"])){
         $paquete=Logica::pedirPaquete($_POST["codigo"]);
         Logica::asignarPaquete($_SESSION["transportista"],$paquete,$_POST["fechaEstimada"]);

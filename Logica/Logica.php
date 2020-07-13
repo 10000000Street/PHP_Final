@@ -4,8 +4,9 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/Persistencia.php");
 
     class Logica{
+        private static $tiempoLogout=3600;
        
-        public function loginTransportista($ci,$password){
+        public static function loginTransportista($ci,$password){
             $transportistas=Persistencia::pedirTransportistas();
             
             if($transportistas!=null){
@@ -13,8 +14,7 @@
                     if($ci==$transportista->getCedula() && !$transportista->getDesactivada()){
                         if(md5($password)==$transportista->getPin()) {
                             session_start();
-                            $_SESSION["cedula"] = $ci;
-                            $_SESSION["tipo"] ="t";
+                            $_SESSION["timeout"] = time()+self::$tiempoLogout;
                             $_SESSION["transportista"]=Persistencia::buscarTransportista($ci);
 
                             return true;
@@ -24,15 +24,14 @@
             }
             return false;
         }
-        public function loginEncargado($ci,$password){
+        public static function loginEncargado($ci,$password){
             $encargados=Persistencia::pedirEncargados();
             if($encargados!=null){
                 foreach($encargados as $encargado){
                     if($ci==$encargado->getCedula()){
                         if(md5($password)==$encargado->getPin()) {
                             session_start();
-                            $_SESSION["cedula"] = $ci;
-                            $_SESSION["tipo"] ="e";
+                            $_SESSION["timeout"] = time()+self::$tiempoLogout;
                             $_SESSION["encargado"]=Persistencia::buscarEncargado($ci);
                             
                             return true;
@@ -46,6 +45,16 @@
             session_start(); 
             session_unset(); 
             session_destroy();
+        }
+        public static function refreshTimeOut(){
+            $refrescar=false;
+            if(isset($_SESSION["timeout"])){
+                if($_SESSION["timeout"]>time()){
+                    $_SESSION["timeout"] = time()+self::$tiempoLogout;
+                    $refrescar= true;
+                }
+            }
+            return $refrescar;
         }
         public static function finalizarEnvio($transportista){
             return Persistencia::finalizarEntrega($transportista);

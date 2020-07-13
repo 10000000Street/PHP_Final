@@ -8,6 +8,7 @@
         header("Location: ../bienvenida.php");
     }
 
+    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["transportista"])){
         $paquete= Logica::pedirPaqueteActivo($_SESSION["transportista"]);
 

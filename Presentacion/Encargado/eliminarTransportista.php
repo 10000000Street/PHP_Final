@@ -10,6 +10,7 @@
     $ac_de="Desactivar ";  
     $ac_de_tr="desactivarTransportista";
 
+    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["encargado"])){
         $transportista=Logica::buscarTransportista($_POST["cedula"]);
         if (isset($_POST["desactivar"]) || isset($_POST["activar"])){ 

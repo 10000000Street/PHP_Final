@@ -10,6 +10,7 @@
     }
     define("PAQUETEEXISTE","No se pudo ingresar el paquete, el paquete ya existe");
     $error="";
+    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["encargado"])){
         if(isset($_POST["agregarPaquete"])){
             $paquete=new Paquete(

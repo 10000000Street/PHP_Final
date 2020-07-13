@@ -1,18 +1,19 @@
 <?php 
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
+    if(!Logica::refreshTimeOut()) Logica::logOut();
+
     session_start();
+
     if (isset($_SESSION["transportista"])){
         header("Location: Transportista/inicio.php"); 
         exit;
     }
     $acceso=null;
     if(isset($_POST["enviar"])){
-        require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
-        $gestorLogica=new Logica();
-        $acceso=$gestorLogica->loginTransportista($_POST["ci"],$_POST["pin"]);
+        $acceso=Logica::loginTransportista($_POST["ci"],$_POST["pin"]);
         if($acceso) {
             header("Location: Transportista/inicio.php"); 
             exit;
-        
         } 
     }
 ?>

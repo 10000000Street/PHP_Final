@@ -9,6 +9,7 @@
     }
     define("PAQUETEEXISTE","Error al intentar borrar el paquete, intente nuevamente mas tarde");
     $error="";
+    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["encargado"])){
 
         if(isset($_POST["borrar"])){
