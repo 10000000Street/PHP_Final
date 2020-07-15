@@ -39,7 +39,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -71,7 +72,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -108,7 +110,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -145,7 +148,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -183,7 +187,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -225,7 +230,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -264,7 +270,8 @@
                 else return null;
                 }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -304,7 +311,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -312,48 +320,49 @@
         }
         //transportistas
         static function agregarTransportista($transportista){
+            $foto=$transportista->getFoto();
+            $nombreFoto=$transportista->getCedula()."n0.jpg";
             try{
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    $query="call ".self::$db.".agregarTransportista(?,?,?,?,?,?,?,@resultado)";
-                    $sentencia=mysqli_prepare($conexion,$query);
-                    $foto=$transportista->getFoto();
-                    $nombreFoto=$transportista->getCedula()."n0.jpg";
-                    mysqli_stmt_bind_param($sentencia,"isssssi",
-                        $transportista->getCedula(),
-                        $transportista->getNombres(),
-                        $transportista->getApellidos(),
-                        $nombreFoto,
-                        md5($transportista->getPin()),
-                        $transportista->getDireccion(),
-                        $transportista->getTelefono()
-                    );
-                    $sentencia->execute();
+                move_uploaded_file(
+                    $foto["tmp_name"],
+                    "/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto
+                );
 
-                    $resultado=mysqli_query($conexion,"select @resultado");
-                    $error=mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
-
-                    if($error==0 && $foto!==null) {
-                        try{
-                            move_uploaded_file(
-                                $foto["tmp_name"],
-                                "/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto
-                            );
-                        }
-                        catch(Exception $e){
-                            //borrar o deshacer el cambio en la base de datos
-                        }
+                try{
+                    $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
+                    if($conexion){
+                        $query="call ".self::$db.".agregarTransportista(?,?,?,?,?,?,?,@resultado)";
+                        $sentencia=mysqli_prepare($conexion,$query);
+                        mysqli_stmt_bind_param($sentencia,"isssssi",
+                            $transportista->getCedula(),
+                            $transportista->getNombres(),
+                            $transportista->getApellidos(),
+                            $nombreFoto,
+                            md5($transportista->getPin()),
+                            $transportista->getDireccion(),
+                            $transportista->getTelefono()
+                        );
+                        $sentencia->execute();
+    
+                        $resultado=mysqli_query($conexion,"select @resultado");
+                        
+                        return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                     }
-                    return $error;
+                    else return null;
                 }
-                else return null;
+                catch(Exception $e){
+                    header("Location: ../Presentacion/error.php");
+                    exit;
+                }
+                finally {
+                    mysqli_close($conexion);
+                }
             }
             catch(Exception $e){
-                echo $e;
+                if (file_exists("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto))
+                    unlink("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto);
             }
-            finally {
-                mysqli_close($conexion);
-            }
+            
         }
         static function modificarTransportista($cedula,$transportista){
             function siguienteFoto($foto){
@@ -402,7 +411,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                    exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -424,7 +434,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -446,7 +457,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -473,7 +485,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -493,7 +506,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -520,7 +534,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -541,7 +556,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);
@@ -561,7 +577,8 @@
                 else return null;
             }
             catch(Exception $e){
-                echo $e;
+                header("Location: ../Presentacion/error.php");
+                exit;
             }
             finally {
                 mysqli_close($conexion);

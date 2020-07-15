@@ -28,7 +28,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="">Paquetitos Punto Com</a></h1>
+            <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>

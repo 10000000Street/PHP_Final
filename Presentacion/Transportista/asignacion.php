@@ -38,7 +38,7 @@
         </div>
         <div id="menu2">
             <ul>
-                <li><a href="?logout=1" accesskey="5" title=""><?php echo $_SESSION["transportista"]->getNombres()."  |  ";?>Cerrar Sesion</a></li>
+                <li><a href="?logout=1" accesskey="5" title=""><?php echo $_SESSION["transportista"]->getNombres()." ".$_SESSION["transportista"]->getApellidos()."  |  ";?>Cerrar Sesion</a></li>
             </ul>
         </div>
     </div>
@@ -46,7 +46,7 @@
     <div id="page" class="container">
         <div id="header">
             <div id="logo">
-                <h1><a href="inicio.php">Transportista:<?php echo "<br>".$_SESSION["transportista"]->getNombres() ?></a></h1>
+                <h1><a href="inicio.php">Transportista:<?php echo "<br>".$_SESSION["transportista"]->getNombres()." ".$_SESSION["transportista"]->getApellidos() ?></a></h1>
                 
             </div>
             <div id="menu">

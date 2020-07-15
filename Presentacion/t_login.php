@@ -1,11 +1,14 @@
 <?php 
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
-    if(!Logica::refreshTimeOut()) Logica::logOut();
-
     session_start();
+    if(!Logica::refreshTimeOut()) Logica::logOut();
 
     if (isset($_SESSION["transportista"])){
         header("Location: Transportista/inicio.php"); 
+        exit;
+    }
+    if (isset($_SESSION["encargado"])){
+        header("Location: Encargado/inicio.php"); 
         exit;
     }
     $acceso=null;

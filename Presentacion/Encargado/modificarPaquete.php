@@ -62,7 +62,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="">Paquetitos Punto Com</a></h1>
+            <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>
@@ -122,7 +122,7 @@
                                                 ';
                                             ?>
                                             <tr>
-                                                <td class="column1"><input name="codigoNuevo" type="text" style="height: 35px; width: 9em; font-size: 20px;" value="<?php echo $paquete->getCodigo()?>" required></td>
+                                                <td class="column1"><input name="codigoNuevo" type="text" style="height: 35px; width: 9em; font-size: 20px;" value="<?php echo $paquete->getCodigo()?>" minlength="11" maxlength="13" required></td>
                                                 <td class="column6"><input name="origen" type="text" style="height: 35px; width: 10em; font-size: 20px;" value="<?php echo $paquete->getRemitente()?>" required></td>
                                                 <td class="column6"><input name="destino" type="text" style="height: 35px; width: 10em; font-size: 20px;" value="<?php echo $paquete->getDestinatario()?>" required></td>
                                                 <td class="column4"><input name="fragil" type="checkbox" <?php if($paquete->getFragil()) echo 'checked'?>></td>

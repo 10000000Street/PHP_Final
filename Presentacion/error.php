@@ -1,3 +1,23 @@
+<?php
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
+    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+    session_start();
+    if(isset($_GET["logout"])){
+        Logica::logOut();
+        header("Location: ../bienvenida.php");
+        exit;
+    }
+    $href="bienvenida.php";
+    $login_logout="Login";
+    if(isset($_SESSION["encargado"]) || isset($_SESSION["transportista"])){
+        if(isset($_SESSION["encargado"]))  $persona=$_SESSION["encargado"];
+        if(isset($_SESSION["transportista"]))  $persona=$_SESSION["transportista"];
+        $login_logout=$persona->getNombres()." ".$persona->getApellidos()."  |  Cerrar Sesion";
+        $href="?logout=1";
+    }
+
+?>
 <html>
 <head>
 <title></title>
@@ -9,11 +29,11 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="#">Paquetitos Punto Com</a></h1>
+            <h1><a href="bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>
-                <li><a href="1_TipoUsuario.html" accesskey="5" title="">Log In</a></li>
+            <li><a href="<?php echo $href;?>" accesskey="5" title=""><?php echo $login_logout; ?></a></li>
             </ul>
         </div>
     </div>
