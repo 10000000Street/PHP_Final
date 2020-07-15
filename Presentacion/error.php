@@ -5,7 +5,7 @@
     session_start();
     if(isset($_GET["logout"])){
         Logica::logOut();
-        header("Location: ../bienvenida.php");
+        header("Location: /PhpUDE/Php_Final/Presentacion/bienvenida.php");
         exit;
     }
     $href="bienvenida.php";

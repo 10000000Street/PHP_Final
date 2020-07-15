@@ -3,12 +3,13 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     session_start();
+    
     if(isset($_GET["logout"])){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-
     if(!Logica::refreshTimeOut()) Logica::logOut();
+
     if (isset($_SESSION["transportista"])){
         $paquete= Logica::pedirPaqueteActivo($_SESSION["transportista"]);
 

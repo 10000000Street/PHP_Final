@@ -36,11 +36,10 @@
                     return $transportistas;
 
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -69,11 +68,10 @@
                     return $encargados;
 
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -107,11 +105,10 @@
                     }
                     else return null;
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -145,11 +142,10 @@
                     }
                     else return null;
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -184,11 +180,10 @@
                     }
                     else return null;
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -227,11 +222,10 @@
                     if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
                     return $paquetes;
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -267,11 +261,10 @@
                     }
                     return $paquete;
                 }
-                else return null;
-                }
+                else throw new Exception();
+            }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -308,11 +301,10 @@
                     if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
                     return $paquetes;
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -348,11 +340,10 @@
                         
                         return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                     }
-                    else return null;
-                }
+                    else throw new Exception();
+            }
                 catch(Exception $e){
-                    header("Location: ../Presentacion/error.php");
-                    exit;
+                    throw $e;
                 }
                 finally {
                     mysqli_close($conexion);
@@ -431,11 +422,10 @@
                     
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -454,11 +444,10 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -482,11 +471,10 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -503,11 +491,10 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -531,11 +518,10 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -553,11 +539,10 @@
 
                     return mysqli_fetch_row($resultado)[0];       
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
@@ -574,11 +559,10 @@
 
                     return mysqli_fetch_row($resultado)[0];       
                 }
-                else return null;
+                else throw new Exception();
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                exit;
+                throw $e;
             }
             finally {
                 mysqli_close($conexion);
