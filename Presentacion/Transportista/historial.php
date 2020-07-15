@@ -4,12 +4,11 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     session_start();
     
-    if(isset($_GET["logout"])){
+    if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
 
-    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["transportista"])){
         $transportista=$_SESSION["transportista"];
         $paquetes= Logica::pedirPaquetesEntregados($transportista);
@@ -91,7 +90,7 @@
                                                 echo '<td class="column1">'.$paquete->getFechaHoraDeAsignacion().'</td>';
                                                 echo '</tr>';
                                             }
-                                        else echo "<br><br>No se has hecho entregas aun, vago.";
+                                        else echo "<br><br>No se has hecho entregas aun.";
                                 echo '</tbody>
                                 </table>
                             </div>

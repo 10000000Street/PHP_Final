@@ -3,14 +3,13 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     session_start();
-    if(isset($_GET["logout"])){
+    if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
         header("Location: ../bienvenida.php");
         exit;
     }
     define("PAQUETEEXISTE","No se pudo ingresar el paquete, el paquete ya existe");
     $error="";
-    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["encargado"])){
         if(isset($_POST["agregarPaquete"])){
             $paquete=new Paquete(

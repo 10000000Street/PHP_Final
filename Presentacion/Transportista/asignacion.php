@@ -4,11 +4,11 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     session_start();
     
-    if(isset($_GET["logout"])){
+    if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-    if(!Logica::refreshTimeOut()) Logica::logOut();
+    
     if(isset($_POST["asignar"])){
         $paquete=Logica::pedirPaquete($_POST["codigo"]);
         Logica::asignarPaquete($_SESSION["transportista"],$paquete,$_POST["fechaEstimada"]);

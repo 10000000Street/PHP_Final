@@ -3,13 +3,12 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     session_start();
-    if(isset($_GET["logout"])){
+    if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
     define("PAQUETEEXISTE","Error al intentar borrar el paquete, intente nuevamente mas tarde");
     $error="";
-    if(!Logica::refreshTimeOut()) Logica::logOut();
     if (isset($_SESSION["encargado"])){
 
         if(isset($_POST["borrar"])){
