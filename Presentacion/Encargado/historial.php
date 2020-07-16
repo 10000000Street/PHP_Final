@@ -2,15 +2,16 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+
     session_start();
+
     if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
 
     if (isset($_SESSION["encargado"])){
-        $envios=Logica::pedirPaquetes(null);
-
+        $envios=Logica::pedirPaquetes(null); //se piden todos los paquetes 
     }
     else header("Location: ../bienvenida.php");
     
@@ -28,7 +29,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="#">Paquetitos Punto Com</a></h1>
+            <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>

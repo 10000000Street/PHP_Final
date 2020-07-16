@@ -2,53 +2,58 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+
     session_start();
+
     if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-    $error="";
     
     if (isset($_SESSION["encargado"])){
-        if(isset($_POST["modificar"])){ // la carga inicial de la pagina
+        //punto de entrada inicial a la pagina
+        if(isset($_POST["modificar"])){ 
             $paquete=Logica::pedirPaquete($_POST["codigo"]);
         }
         else {
-            if(isset($_POST["modificarPaquete"])){ // el llamado a la modificacion en si
+            //punto de entrada a la pagina para la modificacion en si
+            if(isset($_POST["modificarPaquete"])){ 
                 $paquete=Logica::pedirPaquete($_POST["codigo"]);
+
                 $paqueteModificado=new Paquete(
                     $_POST["codigoNuevo"],$_POST["origen"],$_POST["destino"],
                     isset($_POST["fragil"]),isset($_POST["perecedero"]),
-                    null,null,null,-1,null
+                    null,null,null,null,null
                 );
                 $resultado=Logica::modificarPaquete($_POST["codigo"],$paqueteModificado);
-                if($resultado==0){
-                    header("Location: paquetes.php");
-                    exit;
-                }
-                else{
-                    if($resultado==-2){
-                        $error="";
+
+                switch($resultado){
+                    case 0:{
+                        header("Location: paquetes.php");
+                        exit;
                     }
-                    else{
-                        ;//header a pagina de error
+                    case -2:{
+                        $error="Error, el paquete ya esta asignado y no puede ser modificado.";
+                        break;
                     }
+                    case -3:{
+                        $error="Error, el nuevo codigo del paquete ya coincide con otro paquete existente.";
+                        break;
+                    }
+                    default:{
+                        header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
+                        exit;
+                    }  
                 }
-    
             }
             else {
                 header("Location: paquetes.php");
                 exit; 
             }
-            
         }
-
     }
     else header("Location: ../bienvenida.php");
-    
-
 ?>
-
 
 <html>
 <head>
@@ -141,7 +146,7 @@
                     <input type="hidden" name="codigo" value="<?php echo $_POST["codigo"]?>"> 
                     <input type="submit" name="modificarPaquete" value="Modificar" class="buttonLogin buttonLogin1" style="width:250px;">
                     <br><br>
-                    <?php echo $error;?> 
+                    <?php if(isset($error)) echo $error;?>
                 </form>   
             </div>
         </div>

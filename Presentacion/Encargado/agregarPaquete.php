@@ -8,8 +8,7 @@
         header("Location: ../bienvenida.php");
         exit;
     }
-    define("PAQUETEEXISTE","No se pudo ingresar el paquete, el paquete ya existe");
-    $error="";
+
     if (isset($_SESSION["encargado"])){
         if(isset($_POST["agregarPaquete"])){
             $paquete=new Paquete(
@@ -21,13 +20,20 @@
                 null,null,null,-1,null
             );
             $resultado=Logica::agregarPaquete($paquete);
-            if($resultado==0) {
-                header("Location: paquetes.php");
-                exit;
-            }
-            else {
-                if($resultado==-2)$error=PAQUETEEXISTE;
-                else ;//header a pagina de error
+
+            switch($resultado){
+                case 0:{
+                    header("Location: paquetes.php");
+                    exit;
+                }
+                case -2:{
+                    $error="No se pudo ingresar el paquete, el paquete ya existe";
+                    break;
+                }
+                default:{
+                    header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
+                    exit;
+                }    
             }
         }
     }
@@ -47,7 +53,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="#">Paquetitos Punto Com</a></h1>
+            <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>
@@ -96,8 +102,8 @@
                                                 <td class="column1"><input type="text" name="codigo" maxlength="13" minlength="11" style="height: 35px; width: 9em; font-size: 20px;" required></td>
                                                 <td class="column6"><input type="text" name="origen" maxlength="100" minlength="1" style="height: 35px; width: 10em; font-size: 20px;" required></td>
                                                 <td class="column6"><input type="text" name="destino" maxlength="100" minlength="1" style="height: 35px; width: 10em; font-size: 20px;" required></td>
-                                                <td class="column4"><input type="checkbox" name="fragil" ></td>
-                                                <td class="column5"><input type="checkbox" name="perecedero" ></td>
+                                                <td class="column4"><input type="checkbox" name="fragil"></td>
+                                                <td class="column5"><input type="checkbox" name="perecedero"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -112,7 +118,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                     <input type="submit" name="agregarPaquete" value="Agregar" class="buttonLogin buttonLogin1" style="width:250px;">
                     <br><br>
-                    <?php echo $error;?>
+                    <?php if(isset($error))echo $error;?>
                 </form>
             </div>
         </div>

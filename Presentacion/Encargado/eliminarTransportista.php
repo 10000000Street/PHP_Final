@@ -3,44 +3,39 @@
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
     require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
     session_start();
+
     if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
+    //Dado que la pagina es para desactivar/activar $ac_de y $ac_de_tr seran para adecuar la pagina visualmente
     $ac_de="Desactivar ";  
     $ac_de_tr="desactivarTransportista";
     
     if (isset($_SESSION["encargado"])){
         $transportista=Logica::buscarTransportista($_POST["cedula"]);
+
+        //punto de entrada inicial a la pagina
         if (isset($_POST["desactivar"]) || isset($_POST["activar"])){ 
-           
             if (isset($_POST["activar"])){
                 $ac_de="Activar "; 
                 $ac_de_tr="activarTransportista";
             }
-            if (isset($_POST["desactivar"])){
-
-            }
         }
+
+        //punto de entrada a la pagina para activar/desactivar
         else {
             if (isset($_POST["activarTransportista"])){
                 $ac_de="Activar "; 
                 $ac_de_tr="activarTransportista";
                 Logica::reactivarTransportista($_POST["cedula"]);
-                header("Location: transportistas.php");
-                exit;
             }
             else {
-                if (isset($_POST["desactivarTransportista"])){
-                    Logica::desactivarTransportista($_POST["cedula"]);
-                    header("Location: transportistas.php");
-                    exit;
-                }
-                else{
-                    header("Location: transportistas.php");
-                    exit;
-                }
+                Logica::desactivarTransportista($_POST["cedula"]);
             }
+            //ocurra lo que ocurra iremos a la pagina inicial
+            header("Location: transportistas.php");
+            exit;
         }
     }
     else header("Location: ../bienvenida.php");
@@ -59,7 +54,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="#">Paquetitos Punto Com</a></h1>
+            <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>

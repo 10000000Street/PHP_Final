@@ -9,11 +9,13 @@
     }
     
     if (isset($_SESSION["encargado"])){
+        //punto de entrada inicial a la pagina
         if(isset($_POST["modificar"])){
             $transportista=Logica::buscarTransportista($_POST["cedula"]);
             
         }
         else {
+            //punto de entrada a la pagina para la modificacion en si
             if(isset($_POST["modificarTransportista"])){
                 $transportista=Logica::buscarTransportista($_POST["cedula"]);
 
@@ -23,11 +25,30 @@
                     $_POST["apellidos"],
                     $_FILES["foto"],
                     $_POST["pin"],
-                    null,
+                    null, //no se requiere el atributo desactivada por obvias razones
                     $_POST["direccion"],
                     $_POST["telefono"]
                 );
                 $resultado=Logica::modificarTransportista($_POST["cedula"],$transportistaCambios);
+
+                switch($resultado){
+                    case 0:{
+                        header("Location: paquetes.php");
+                        exit;
+                    }
+                    case -2:{
+                        $error="Error, el paquete ya esta asignado y no puede ser modificado.";
+                        break;
+                    }
+                    case -3:{
+                        $error="Error, el nuevo codigo del paquete ya coincide con otro paquete existente.";
+                        break;
+                    }
+                    default:{
+                        header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
+                        exit;
+                    }  
+                }
 
                 $transportista=Logica::buscarTransportista($_POST["cedula"]);
             }
@@ -56,7 +77,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="#">Paquetitos Punto Com</a></h1>
+            <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>
@@ -134,6 +155,8 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                     <input type="hidden" name="cedula" value="<?php echo $_POST["cedula"];?>">
                     <input type="submit" name="modificarTransportista" value="Modificar" class="buttonLogin buttonLogin1" style="width:250px;">
+                    <br><br>
+                    <?php if(isset($error)) echo $error;?>
                 </form>   
             </div>
         </div>

@@ -9,7 +9,7 @@
     }
 
     if (isset($_SESSION["encargado"])){
-        $paquetesActivos=Logica::pedirPaquetes(0);
+        $paquetesActivos=Logica::pedirPaquetes(0); // se piden los paquetes asignados
     }
     else header("Location: ../bienvenida.php");
     

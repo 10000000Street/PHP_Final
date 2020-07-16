@@ -7,8 +7,7 @@
         Logica::logOut();
         header("Location: ../bienvenida.php");
     }
-    define("PAQUETEEXISTE","Error al intentar borrar el paquete, intente nuevamente mas tarde");
-    $error="";
+
     if (isset($_SESSION["encargado"])){
 
         if(isset($_POST["borrar"])){
@@ -19,25 +18,26 @@
             if(isset($_POST["borrarPaquete"])){
                 $paquete=Logica::pedirPaquete($_POST["codigo"]);
                 $resultado=Logica::eliminarPaquete($_POST["codigo"]);
-                if($resultado==0){
-                    header("Location: paquetes.php");
-                    exit;
-                }
-                else{
-                    if($resultado==-2){
-                        $error=PAQUETEEXISTE;
+
+                switch($resultado){
+                    case 0:{
+                        header("Location: paquetes.php");
+                        exit;
                     }
-                    else{
-                        ;//header a pagina de error
+                    case -2:{
+                        $error="Error al intentar borrar el paquete, intente nuevamente mas tarde";
+                        break;
                     }
+                    default:{
+                        header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
+                        exit;
+                    }  
                 }
-    
             }
             else {
                 header("Location: paquetes.php");
                 exit; 
-            }
-            
+            }   
         }
     }
     else {
@@ -57,7 +57,7 @@
 
     <div id="header2" class="container2">
         <div id="logo2">
-            <h1><a href="#">Paquetitos Punto Com</a></h1>
+            <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
         <div id="menu2">
             <ul>
@@ -132,7 +132,7 @@
                     <input type="hidden" name="codigo" value="<?php echo $paquete->getCodigo()?>">
                     <input type="submit" name="borrarPaquete" value="Borrar" class="buttonLogin buttonLogin1" style="width:250px;">
                     <br><br>
-                    <?php echo $error;?>  
+                    <?php if(isset($error)) echo $error;?>
                 </from> 
             </div>
         </div>
