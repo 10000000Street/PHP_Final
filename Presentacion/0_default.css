@@ -917,6 +917,19 @@
 	color: white;
 	/*rgba(0,0,0,0.5)*/
 	}
+	.buttonLoginAct {
+		background-color:  #206391;
+		color: white;
+		padding: 10px 10px;
+		font-size: 15px;
+		border-radius: 32px;
+		}
+		.buttonLoginAct:hover {
+		background-color: rgba(70, 199, 31, 0.5);
+		color: white;
+		/*rgba(0,0,0,0.5)*/
+		}
+
   .buttonLoginAgr {
 	background-color:  #184b6d;
 	color: white;
