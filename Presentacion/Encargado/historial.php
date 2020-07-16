@@ -105,7 +105,7 @@
                                         }
                                         else return $FEntrega;
                                     }
-                                    foreach($envios as $envio){
+                                    if($envios!=null)foreach($envios as $envio){
                                         echo '<tr><td class="column1">'.$envio->getCodigo().'</td>
                                             <td class="column6">'.convertirEstado($envio->getEstado()).'</td>
                                             <td class="column6">'.errorFAsignasion($envio->getFechaHoraDeAsignacion()).'</td>

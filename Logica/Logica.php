@@ -160,15 +160,14 @@
         public static function modificarPaquete($codigo,$paquete){
             try{
                 $paqueteOriginal=Persistencia::pedirPaquete($codigo);
-                $paqueteMod=clone $paquete;
 
-                if($paqueteOriginal->getCodigo()===$paquete->getCodigo()) $paqueteMod->setCodigo(null);
-                if($paqueteOriginal->getRemitente()===$paquete->getRemitente()) $paqueteMod->setRemitente(null);
-                if($paqueteOriginal->getDestinatario()===$paquete->getDestinatario()) $paqueteMod->setDestinatario(null);
-                if($paqueteOriginal->getFragil()===$paquete->getFragil()) $paqueteMod->setFragil(null);
-                if($paqueteOriginal->getPerecedero()===$paquete->getPerecedero()) $paqueteMod->setPerecedero(null);
+                if($paqueteOriginal->getCodigo()===$paquete->getCodigo()) $paquete->setCodigo(null);
+                if($paqueteOriginal->getRemitente()===$paquete->getRemitente()) $paquete->setRemitente(null);
+                if($paqueteOriginal->getDestinatario()===$paquete->getDestinatario()) $paquete->setDestinatario(null);
+                if($paqueteOriginal->getFragil()===$paquete->getFragil()) $paquete->setFragil(null);
+                if($paqueteOriginal->getPerecedero()===$paquete->getPerecedero()) $paquete->setPerecedero(null);
         
-                return Persistencia::modificarPaquete($codigo, $paqueteMod);
+                return Persistencia::modificarPaquete($codigo, $paquete);
             }
             catch(Exception $e){
                 header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
