@@ -60,47 +60,47 @@
                     else return $dato; 
                 }
                 if($paquete!=null){
-                    echo '
-                    <div id="banner">
-                        <div class="limiter">
-                            <div class="container-table100">
-                                <div class="wrap-table100">
-                                    <div class="table100">
-                                        <table>
-                                            <thead>
-                                                <tr class="table100-head">
-                                                    <th class="column1">Codigo</th>
-                                                    <th class="column2">Direccion (Remitente)</th>
-                                                    <th class="column3">Direccion (envio)</th>
-                                                    <th class="column4">Fragil</th>
-                                                    <th class="column5">Perecedero</th>
+                    $estado=$paquete->getEstado();
+                    if($estado===0 || $estado===1){
+                        echo '
+                        <div id="banner">
+                            <div class="limiter">
+                                <div class="container-table100">
+                                    <div class="wrap-table100">
+                                        <div class="table100">
+                                            <table>
+                                                <thead>
+                                                    <tr class="table100-head">
+                                                        <th class="column1">Codigo</th>
+                                                        <th class="column4">Fragil</th>
+                                                        <th class="column5">Perecedero</th>
 
-                                                    <th class="column6">Fecha de entrega (Estimada)</th>
-                                                    <th class="column7">Fecha de entrega</th>
-                                                    <th class="column8">Estado</th>
-                                                    <th class="column9">Fecha y Hora de Asignacion</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="column1">'.$paquete->getCodigo().'</td>
-                                                    <td class="column2">'.$paquete->getRemitente().'</td>
-                                                    <td class="column3">'.$paquete->getDestinatario().'</td>
-                                                    <td class="column4">'.auxFunction($paquete->getFragil()).'</td>
-                                                    <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>
+                                                        <th class="column6">Fecha de entrega (Estimada)</th>';
+                                if($estado===1) echo '<th class="column7">Fecha de entrega</th>';
+                                                echo '<th class="column8">Estado</th>
+                                                        <th class="column9">Fecha y Hora de Asignacion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="column1">'.$paquete->getCodigo().'</td>
+                                                        <td class="column4">'.auxFunction($paquete->getFragil()).'</td>
+                                                        <td class="column5">'.auxFunction($paquete->getPerecedero()).'</td>
 
-                                                    <td class="column6">'.auxNull($paquete->getFechaEstimada()).'</td>
-                                                    <td class="column7">'.auxNull($paquete->getFechaDeEntrega()).'</td>
-                                                    <td class="column8">'.auxEstado($paquete->getEstado()).'</td>
-                                                    <td class="column9">'.auxNull($paquete->getFechaHoraDeAsignacion()).'</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        <td class="column6">'.auxNull($paquete->getFechaEstimada()).'</td>';
+                                if($estado===1) echo '<td class="column7">'.auxNull($paquete->getFechaDeEntrega()).'</td>';
+                                                echo '<td class="column8">'.auxEstado($estado).'</td>
+                                                        <td class="column9">'.auxNull($paquete->getFechaHoraDeAsignacion()).'</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>  
-                    </div>';
+                            </div>  
+                        </div>';
+                    }
+                    else echo "<br><br>El paquete no fue asignado todavia";
                 }
             ?>
         </div>

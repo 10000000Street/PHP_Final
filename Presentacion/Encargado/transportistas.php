@@ -94,14 +94,14 @@
                                                 <th class="column5">
                                                     <form method="post" action="eliminarTransportista.php" >
                                                         <input type="hidden" name="cedula" value="'.$transportista->getCedula().'">
-                                                        <input type="submit" name="desactivar" value="Desactivar" class="buttonLogin buttonLogin2">
+                                                        <input type="submit" name="desactivar" value="Desactivar" class="buttonLogin buttonLoginBor">
                                                     </form>
                                                 </th>';}
                                             else {echo '
                                                 <th class="column5">
                                                     <form method="post" action="eliminarTransportista.php" >
                                                         <input type="hidden" name="cedula" value="'.$transportista->getCedula().'">
-                                                        <input type="submit" name="activar" value="Activar" class="buttonLogin buttonLogin2">
+                                                        <input type="submit" name="activar" value="Activar" class="buttonLogin buttonLoginAct">
                                                     </form>
                                                 </th>
                                             </tr>';  }      
