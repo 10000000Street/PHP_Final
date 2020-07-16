@@ -33,7 +33,7 @@
 
                 switch($resultado){
                     case 0:{
-                        header("Location: paquetes.php");
+                        header("Location: transportistas.php");
                         exit;
                     }
                     case -2:{
@@ -155,6 +155,10 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                     <input type="hidden" name="cedula" value="<?php echo $_POST["cedula"];?>">
                     <input type="submit" name="modificarTransportista" value="Modificar" class="buttonLogin buttonLogin1" style="width:250px;">
+                    <br><br>
+                    Los espacios en blanco y los campos que sean iguales no seran almacenados.
+                    <br>
+                    No es necesario rellenar todo.
                     <br><br>
                     <?php if(isset($error)) echo $error;?>
                 </form>   

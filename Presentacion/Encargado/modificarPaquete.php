@@ -146,6 +146,8 @@
                     <input type="hidden" name="codigo" value="<?php echo $_POST["codigo"]?>"> 
                     <input type="submit" name="modificarPaquete" value="Modificar" class="buttonLogin buttonLogin1" style="width:250px;">
                     <br><br>
+                    Unicamente las diferencias seran almacenadas.
+                    <br><br>
                     <?php if(isset($error)) echo $error;?>
                 </form>   
             </div>
