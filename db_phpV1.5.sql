@@ -45,8 +45,8 @@ create table Paquete (
 /* INSERT Personas */
 
 INSERT INTO Persona VALUES
-(73643802,'Tomas','Merino','73643802n0.jpg','91f071452abaa5c84707643da58352c4',false),
-(87963526,'Antoni','Encinas','87963526n0.jpg','e536f72e36f9164150947a1a06ee3dcf',false),
+(48488430,'Federico','Méndez Olivera','73643802n0.jpg','e10adc3949ba59abbe56e057f20f883e',false),
+(5340339,'Tadeo','Goday','87963526n0.jpg','e10adc3949ba59abbe56e057f20f883e',false),
 (44956533,'Clemente','Chen','44956533n0.jpg','b776ef5ff96773dc22822c6fe4702b13',false),
 (07242161,'Jesus Miguel','Castellano','7242161n0.jpg','9409d561228e6469d79b923f08bbbc08',false),
 
@@ -56,8 +56,8 @@ INSERT INTO Persona VALUES
 (92416532,'Simon','Roldan','92416532n0.jpg','5231ee3a4914171201f7e5484cc2f23a',false);
 /*
 INSERT INTO Persona VALUES
-(73643802,'Tomas','Merino','73643802n0.jpg','qGx4Yn'),
-(87963526,'Antoni','Encinas','87963526n0.jpg','B3J4Eg'),
+(48488430,'Tomas','Merino','48488430n0.jpg','123456'),
+(5340339,'Antoni','Encinas','87963526n0.jpg','123456'),
 (44956533,'Clemente','Chen','44956533n0.jpg','RmYCMw'),
 (07242161,'Jesus Miguel','Castellano','7242161n0.jpg','HQ6WCE'),
 
@@ -67,9 +67,9 @@ INSERT INTO Persona VALUES
 (92416532,'Simon','Roldan','92416532n0.jpg','XTczHH'); */
 
 INSERT INTO Encargado VALUES
-(73643802,'fenomen4k@gmail.com'),
-(87963526,'sketiitboy_@outlook.com'),
-(44956533,'$antana@hotmail.com'),
+(48488430,'fededemende@gmail.com'),
+(5340339,'tadeo.goday@gmail.com '),
+(44956533,'php.ude@gmail.com'),
 (07242161,'re_boludeable@hotmail.com');
 
 INSERT INTO Transportista VALUES
