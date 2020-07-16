@@ -140,7 +140,7 @@
                                                 <td class="column5"><input name="direccion" style="height: 35px; width: 6em; font-size: 20px;" type="text" maxlength="50"></td>
                                                 <td class="column5"><input name="telefono" style="height: 35px; width: 6em; font-size: 20px;" type="number"></td>
                                                 <td class="column5"><input name="foto" style="height: 35px; width: 6em; font-size: 15px;" type="file"></td>
-                                                <td class="column5"><input name="pin" style="height: 35px; width: 6em; font-size: 20px;" type="text" maxlength="6" minlength="6"></td>
+                                                <td class="column5"><input name="pin" style="height: 35px; width: 6em; font-size: 20px;" type="password" maxlength="6" minlength="6"></td>
                                             </tr>
                                         </tbody>
                                     </table>
