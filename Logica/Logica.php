@@ -1,7 +1,27 @@
 <?php 
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/Persistencia.php");
+    require_once (__DIR__."/../Entidades/Paquete.php");
+    require_once (__DIR__."/../Entidades/Persona.php");
+    require_once (__DIR__."/../Persistencia/Persistencia.php");
+
+    function trickyOnlyForXamppServer(){
+        $arrayDirectorio=explode('\\',__DIR__);
+        $indiceHTDOCS=0;
+        $ruta="";
+        for($i=0;$i<count($arrayDirectorio);$i++){
+            if($arrayDirectorio[$i]==="htdocs") {
+                $indiceHTDOCS=++$i;
+                break;
+            }
+        }
+        for($i=$indiceHTDOCS;$i<count($arrayDirectorio);$i++){
+            $ruta=$ruta."/".$arrayDirectorio[$i];
+        }
+        return $ruta;
+    }
+    function redireccion(){
+        header("Location: ".trickyOnlyForXamppServer()."/../Presentacion/error.php");
+        exit;
+    }
 
     class Logica{
         private static $tiempoLogout=3600;
@@ -25,8 +45,7 @@
                 return false;
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function loginEncargado($ci,$password){
@@ -48,8 +67,7 @@
                 return false;
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function logOut(){
@@ -72,8 +90,7 @@
                 return Persistencia::finalizarEntrega($transportista);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function pedirPaqueteActivo($tranportista){ 
@@ -81,8 +98,7 @@
                 return Persistencia::paqueteActivo($tranportista);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function pedirPaquetes($estado){
@@ -90,8 +106,7 @@
                 return Persistencia::pedirPaquetes($estado);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function asignarPaquete($tranportista,$paquete,$fechaEstimada){
@@ -99,8 +114,7 @@
                 return Persistencia::asignarPaquete($tranportista,$paquete,$fechaEstimada);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function pedirPaquete($codigo){
@@ -108,8 +122,7 @@
                 return Persistencia::pedirPaquete($codigo);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function pedirPaquetesEntregados($transportista){
@@ -117,8 +130,7 @@
                 return Persistencia::pedirPaquetesEntregados($transportista);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function pedirTransportistas(){
@@ -126,8 +138,7 @@
                 return Persistencia::pedirTransportistas();
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function buscarTransportista($ci){
@@ -135,8 +146,7 @@
                 return Persistencia::buscarTransportista($ci);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function agregarPaquete($paquete){
@@ -144,8 +154,7 @@
                 return Persistencia::agregarPaquete($paquete);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function eliminarPaquete($codigo){
@@ -153,8 +162,7 @@
                 return Persistencia::eliminarPaquete($codigo);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function modificarPaquete($codigo,$paquete){
@@ -170,8 +178,7 @@
                 return Persistencia::modificarPaquete($codigo, $paquete);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         // transportistas
@@ -180,8 +187,7 @@
                 return Persistencia::agregarTransportista($tranportista);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function modificarTransportista($cedula,$tranportista){
@@ -208,8 +214,7 @@
                 return Persistencia::modificarTransportista($cedula,$tranportista);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function desactivarTransportista($cedula){
@@ -217,8 +222,7 @@
                 return Persistencia::desactivarTransportista($cedula);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
         public static function reactivarTransportista($cedula){
@@ -226,8 +230,7 @@
                 return Persistencia::reactivarTransportista($cedula);
             }
             catch(Exception $e){
-                header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
-                exit;
+                redireccion();
             }
         }
 

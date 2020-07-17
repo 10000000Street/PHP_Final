@@ -57,7 +57,7 @@ INSERT INTO Persona VALUES
 /*
 INSERT INTO Persona VALUES
 (48488430,'Tomas','Merino','48488430n0.jpg','123456'),
-(5340339,'Antoni','Encinas','87963526n0.jpg','123456'),
+(5340339,'Antoni','Encinas','5340339n0.jpg','123456'),
 (44956533,'Clemente','Chen','44956533n0.jpg','RmYCMw'),
 (07242161,'Jesus Miguel','Castellano','7242161n0.jpg','HQ6WCE'),
 

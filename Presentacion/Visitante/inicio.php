@@ -21,12 +21,6 @@
         <div id="logo2">
             <h1><a href="../bienvenida.php">Paquetitos Punto Com</a></h1>
         </div>
-        <div id="menu2">
-            <?php if(isset($_SESSION["transportista"])) echo '
-            <ul>
-                <li><a href="?logout=1" accesskey="5" title=""><?php echo $_SESSION["transportista"]->getNombres()."  |  ";?>Cerrar Sesion</a></li>
-            </ul>';?>
-        </div>
     </div>
     
     <div id="page" class="container">

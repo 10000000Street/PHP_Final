@@ -1,8 +1,7 @@
 <?php  
     
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
-    
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+    require_once (__DIR__."/../Entidades/Paquete.php");
+    require_once (__DIR__."/../Entidades/Persona.php");
 
     class Persistencia {
         private static $ip="localhost";
@@ -36,7 +35,7 @@
                     return $transportistas;
 
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -68,7 +67,7 @@
                     return $encargados;
 
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -105,7 +104,7 @@
                     }
                     else return null;
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -142,7 +141,7 @@
                     }
                     else return null;
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -180,7 +179,7 @@
                     }
                     else return null;
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -222,7 +221,7 @@
                     if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
                     return $paquetes;
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -261,7 +260,7 @@
                     }
                     return $paquete;
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -301,7 +300,7 @@
                     if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
                     return $paquetes;
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -317,7 +316,7 @@
             try{
                 move_uploaded_file(
                     $foto["tmp_name"],
-                    "../../Persistencia/imagenes/".$nombreFoto
+                    __DIR__."/imagenes/".$nombreFoto
                 );
 
                 try{
@@ -340,7 +339,7 @@
                         
                         return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                     }
-                    /*else throw new Exception();*/
+                    else throw new Exception();
             }
                 catch(Exception $e){
                     throw $e;
@@ -350,8 +349,8 @@
                 }
             }
             catch(Exception $e){
-                if (file_exists("../../Persistencia/imagenes/".$nombreFoto))
-                    unlink("../../Persistencia/imagenes/".$nombreFoto);
+                if (file_exists(__DIR__."/imagenes/".$nombreFoto))
+                    unlink(__DIR__."/imagenes/".$nombreFoto);
             }
             
         }
@@ -369,7 +368,7 @@
                 $nombreFoto=self::buscarTransportista($cedula)->getFoto();
                 move_uploaded_file(
                     $foto["tmp_name"],
-                    "../../Persistencia/imagenes/".siguienteFoto($nombreFoto)
+                    __DIR__."/imagenes/".siguienteFoto($nombreFoto)
                 );
 
                 try{
@@ -405,8 +404,8 @@
                 }
             }
             catch(Exception $e){
-                if (file_exists("../../Persistencia/imagenes/".$nombreFoto))
-                    unlink("../../Persistencia/imagenes/".$nombreFoto);
+                if (file_exists(__DIR__."/imagenes/".$nombreFoto))
+                    unlink(__DIR__."/imagenes/".$nombreFoto);
             }
         }
         static function desactivarTransportista($cedula){
@@ -422,7 +421,7 @@
                     
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -444,7 +443,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -471,7 +470,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -491,7 +490,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -518,7 +517,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -539,7 +538,7 @@
 
                     return mysqli_fetch_row($resultado)[0];       
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
@@ -559,7 +558,7 @@
 
                     return mysqli_fetch_row($resultado)[0];       
                 }
-                /*else throw new Exception();*/
+                else throw new Exception();
             }
             catch(Exception $e){
                 throw $e;
