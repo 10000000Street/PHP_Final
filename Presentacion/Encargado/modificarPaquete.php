@@ -1,7 +1,7 @@
 <?php
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+    require_once ("../../Logica/Logica.php");
+    require_once ("../../Entidades/Paquete.php");
+    require_once ("../../Entidades/Persona.php");
 
     session_start();
 
@@ -41,7 +41,7 @@
                         break;
                     }
                     default:{
-                        header("Location: /PhpUDE/Php_Final/Presentacion/error.php");
+                        header("Location: ../Presentacion/error.php");
                         exit;
                     }  
                 }

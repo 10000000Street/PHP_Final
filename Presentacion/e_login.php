@@ -1,5 +1,5 @@
 <?php  
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
+    require_once ("/../Logica/Logica.php");
     session_start();
     if(!Logica::refreshTimeOut()) Logica::logOut();
 

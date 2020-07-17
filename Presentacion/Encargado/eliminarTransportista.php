@@ -1,7 +1,7 @@
 <?php
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+    require_once ("../../Logica/Logica.php");
+    require_once ("../../Entidades/Paquete.php");
+    require_once ("../../Entidades/Persona.php");
     session_start();
 
     if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
@@ -106,7 +106,7 @@
                                                 <td class="column1"><?php echo $transportista->getCedula();?></td>
                                                 <td class="column1"><?php echo $transportista->getDireccion();?></td>
                                                 <td class="column1"><?php echo $transportista->getTelefono();?></td>
-                                                <td class="column1"><img src="/PhpUDE/Php_Final/Persistencia/imagenes/<?php echo $transportista->getFoto();?>" height="60"></td>
+                                                <td class="column1"><img src="../../Persistencia/imagenes/<?php echo $transportista->getFoto();?>" height="60"></td>
                                             </tr>
                                         </tbody>
                                     </table>

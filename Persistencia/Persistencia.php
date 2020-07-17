@@ -36,7 +36,7 @@
                     return $transportistas;
 
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -68,7 +68,7 @@
                     return $encargados;
 
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -105,7 +105,7 @@
                     }
                     else return null;
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -142,7 +142,7 @@
                     }
                     else return null;
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -180,7 +180,7 @@
                     }
                     else return null;
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -222,7 +222,7 @@
                     if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
                     return $paquetes;
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -261,7 +261,7 @@
                     }
                     return $paquete;
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -301,7 +301,7 @@
                     if(count($paquetes)==0) $paquetes=null; /* para evitar un array vacio */
                     return $paquetes;
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -317,7 +317,7 @@
             try{
                 move_uploaded_file(
                     $foto["tmp_name"],
-                    "/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto
+                    "../../Persistencia/imagenes/".$nombreFoto
                 );
 
                 try{
@@ -340,7 +340,7 @@
                         
                         return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                     }
-                    else throw new Exception();
+                    /*else throw new Exception();*/
             }
                 catch(Exception $e){
                     throw $e;
@@ -350,63 +350,63 @@
                 }
             }
             catch(Exception $e){
-                if (file_exists("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto))
-                    unlink("/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".$nombreFoto);
+                if (file_exists("../../Persistencia/imagenes/".$nombreFoto))
+                    unlink("../../Persistencia/imagenes/".$nombreFoto);
             }
             
         }
         static function modificarTransportista($cedula,$transportista){
             function siguienteFoto($foto){
                 if($foto!==null){
-                    $ci_num=explode("n",$foto);
-                    return $ci_num[0]."n".++$ci_num[1];
+                    $jpg=explode(".",$foto); //traigo el cedulaN0.jpg
+                    $ci_num=explode("n",$jpg[0]);
+                    return $ci_num[0]."n".++$ci_num[1].".jpg";
                 }
                 else return null;
             }
             try{
-                
-                $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
-                if($conexion){
-                    $query="call ".self::$db.".modificarTransportista(?,?,?,?,?,?,?,?,@resultado)";
-                    $sentencia=mysqli_prepare($conexion,$query);
-                    $foto=$transportista->getFoto();
-                    mysqli_stmt_bind_param($sentencia,"iisssssi",
-                        $cedula,
-                        $transportista->getCedula(),
-                        $transportista->getNombres(),
-                        $transportista->getApellidos(),
-                        siguienteFoto($foto),
-                        md5($transportista->getPin()),
-                        $transportista->getDireccion(),
-                        $transportista->getTelefono()
-                    );
-                    $sentencia->execute();
+                $foto=$transportista->getFoto();
+                $nombreFoto=self::buscarTransportista($cedula)->getFoto();
+                move_uploaded_file(
+                    $foto["tmp_name"],
+                    "../../Persistencia/imagenes/".siguienteFoto($nombreFoto)
+                );
 
-                    $resultado=mysqli_query($conexion,"select @resultado");
-                    $error=mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
-
-                    if($error==0 && $foto!==null) {
-                        try{
-                            move_uploaded_file(
-                                $foto["tmp_name"],
-                                "/xampp/htdocs/PhpUDE/Php_Final/Persistencia/imagenes/".siguienteFoto($foto).".jpg"
-                            );
-                        }
-                        catch(Exception $e){
-                            //borrar o deshacer el cambio en la base de datos
-                        }
+                try{
+                    $conexion = mysqli_connect(self::$ip,self::$user,self::$pass,self::$db,self::$port);
+                    if($conexion){
+                        $query="call ".self::$db.".modificarTransportista(?,?,?,?,?,?,?,?,@resultado)";
+                        $sentencia=mysqli_prepare($conexion,$query);
+                        
+                        mysqli_stmt_bind_param($sentencia,"iisssssi",
+                            $cedula,
+                            $transportista->getCedula(),
+                            $transportista->getNombres(),
+                            $transportista->getApellidos(),
+                            siguienteFoto($nombreFoto),
+                            md5($transportista->getPin()),
+                            $transportista->getDireccion(),
+                            $transportista->getTelefono()
+                        );
+                        $sentencia->execute();
+    
+                        $resultado=mysqli_query($conexion,"select @resultado");
+                        $error=mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
+    
+                        return $error;
                     }
-                    
-                    return $error;
+                    else throw new Exception();
                 }
-                else return null;
+                catch(Exception $e){
+                    throw $e;
+                }
+                finally {
+                    mysqli_close($conexion);
+                }
             }
             catch(Exception $e){
-                header("Location: ../Presentacion/error.php");
-                    exit;
-            }
-            finally {
-                mysqli_close($conexion);
+                if (file_exists("../../Persistencia/imagenes/".$nombreFoto))
+                    unlink("../../Persistencia/imagenes/".$nombreFoto);
             }
         }
         static function desactivarTransportista($cedula){
@@ -422,7 +422,7 @@
                     
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -444,7 +444,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -471,7 +471,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -491,7 +491,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -518,7 +518,7 @@
 
                     return mysqli_fetch_array($resultado,MYSQLI_NUM)[0];
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -539,7 +539,7 @@
 
                     return mysqli_fetch_row($resultado)[0];       
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;
@@ -559,7 +559,7 @@
 
                     return mysqli_fetch_row($resultado)[0];       
                 }
-                else throw new Exception();
+                /*else throw new Exception();*/
             }
             catch(Exception $e){
                 throw $e;

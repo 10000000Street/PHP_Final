@@ -45,8 +45,8 @@ create table Paquete (
 /* INSERT Personas */
 
 INSERT INTO Persona VALUES
-(48488430,'Federico','Méndez Olivera','73643802n0.jpg','e10adc3949ba59abbe56e057f20f883e',false),
-(5340339,'Tadeo','Goday','87963526n0.jpg','e10adc3949ba59abbe56e057f20f883e',false),
+(48488430,'Federico','Méndez Olivera','48488430n0.jpg','e10adc3949ba59abbe56e057f20f883e',false),
+(5340339,'Tadeo','Goday','5340339n0.jpg','e10adc3949ba59abbe56e057f20f883e',false),
 (44956533,'Clemente','Chen','44956533n0.jpg','b776ef5ff96773dc22822c6fe4702b13',false),
 (07242161,'Jesus Miguel','Castellano','7242161n0.jpg','9409d561228e6469d79b923f08bbbc08',false),
 

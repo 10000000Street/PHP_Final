@@ -1,7 +1,7 @@
 <?php
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Paquete.php");
-    require_once ("/xampp/htdocs/PhpUDE/Php_Final/Entidades/Persona.php");
+    require_once ("../../Logica/Logica.php");
+    require_once ("../../Entidades/Paquete.php");
+    require_once ("../../Entidades/Persona.php");
     session_start();
     if(isset($_GET["logout"]) || !Logica::refreshTimeOut()){
         Logica::logOut();
@@ -82,7 +82,7 @@
                                                 <td class="column6">'.$transportista->getNombres()." ".$transportista->getApellidos().'</td>
                                                 <td class="column4">'.$transportista->getDireccion().'</td>
                                                 <td class="column5">'.$transportista->getTelefono().'</td>
-                                                <th class="column5"><img src="/PhpUDE/Php_Final/Persistencia/imagenes/'.$transportista->getFoto().'" height="60"></th>
+                                                <th class="column5"><img src="../../Persistencia/imagenes/'.$transportista->getFoto().'" height="60"></th>
                                                 <th class="column5">
                                                     <form method="post" action="modificarTransportista.php" >
                                                         <input type="hidden" name="cedula" value="'.$transportista->getCedula().'">

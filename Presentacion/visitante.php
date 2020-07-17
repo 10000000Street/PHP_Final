@@ -1,7 +1,7 @@
 <?php 
     $paquete=null;
     if(isset($_POST["buscar"])) {
-        require_once ("/xampp/htdocs/PhpUDE/Php_Final/Logica/Logica.php");
+        require_once ("../Logica/Logica.php");
         $paquete=Logica::pedirPaquete($_POST["codigo"]);
         if( $paquete != null){
             header('Location: Visitante/inicio.php?codigo='.$paquete->getCodigo());
